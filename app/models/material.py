@@ -11,8 +11,8 @@ class MaterialDocumentations(db.Model):
     synopsis = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
 
-    # subject = db.relationship("Subjects", back_populates="material")
-    # comment = db.relationship("Comments", back_populates="documentation")
+    subject = db.relationship("Subjects", back_populates="material")
+    comment = db.relationship("Comments", back_populates="documentation")
     material_creator = db.relationship("User", back_populates="documentation")
 
     def to_dict(self):
