@@ -19,7 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    env: heroku_api_key:${{c40e832b-a42c-48a0-9ac6-69ef7ae8cef7}}
+    env: HEROKU_API_KEY:${{c40e832b-a42c-48a0-9ac6-69ef7ae8cef7}},
     steps: 
     - uses: actions/checkout@v2
     - name: build and push
