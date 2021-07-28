@@ -7,10 +7,10 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     material_documentationId = db.Column(db.Integer, db.ForeignKey("material_documentations.id"), nullable=False)
-    comment = db.Column(db.TextArea, nullable=False)
+    comment = db.Column(db.Text, nullable=False)
 
-    documentation = db.relationship("User", back_populated="")
-    creator = db.relationship("User", back_populated="comments")
+    documentation = db.relationship("MaterialDocumentations", back_populates="comment")
+    creators = db.relationship("User", back_populates="comments")
 
     def to_dict(self):
         return {

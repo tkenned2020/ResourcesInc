@@ -8,7 +8,19 @@ class MaterialDocumentations(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     subjectId = db.Column(db.Integer, db.ForeignKey("subjects.id"), nullable=False)
     title = db.Column(db.String(250), nullable=False)
-    synopsis = db.Column(db.TextArea, nullable=False)
-    content = db.Colunm(db.TextArea, nullable=False)
+    synopsis = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
 
- 
+    # subject = db.relationship("Subjects", back_populates="material")
+    # comment = db.relationship("Comments", back_populates="documentation")
+    material_creator = db.relationship("User", back_populates="documentation")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'subjectId' : self.subjectId,
+            'title': self.title,
+            'synopsis' : self.synopsis,
+            'content' : self.content
+        }
