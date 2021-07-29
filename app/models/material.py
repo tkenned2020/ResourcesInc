@@ -1,5 +1,5 @@
 from .db import db
-
+from datetime import datetime
 
 class MaterialDocumentations(db.Model):
     __tablename__ = "material_documentations"
@@ -10,6 +10,7 @@ class MaterialDocumentations(db.Model):
     title = db.Column(db.String(250), nullable=False)
     synopsis = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     subject = db.relationship("Subjects", back_populates="material")
     comment = db.relationship("Comments", back_populates="documentation")
