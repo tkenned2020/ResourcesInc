@@ -99,7 +99,7 @@ export const deleteMaterial = (materialId) => async dispatch => {
 const initialState = {}
 
 
-export default function materialReducer(state = initialState, action){
+export default function reducer(state = initialState, action){
   let newState;
   switch (action.type){
     case ADD_MATERIAL:
