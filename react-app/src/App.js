@@ -8,11 +8,17 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import { getMaterials } from './store/material';
+
+
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+
+  
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());

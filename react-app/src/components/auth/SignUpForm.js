@@ -5,6 +5,10 @@ import { signUp } from '../../store/session';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [areasOfInterest, setAreasOfInterest] = useState('');
+  const [biography, setBiography] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,16 +19,29 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(firstName, lastName, areasOfInterest, biography, username, email, password));
       if (data) {
         setErrors(data)
       }
     }
   };
 
+  const updateFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+  const updateLastName = (e) => {
+    setLastName(e.target.value);
+  };
+  const updateAreasOfInterest = (e) => {
+    setAreasOfInterest(e.target.value);
+  };
+  const updateBiography = (e) => {
+    setBiography(e.target.value);
+  };
+
   const updateUsername = (e) => {
     setUsername(e.target.value);
-  };
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -50,7 +67,48 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
+        <label>First Name</label>
+        <br/>
+        <input
+          type='text'
+          name='First Name'
+          onChange={updateFirstName}
+          value={firstName}
+        ></input>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <br/>
+        <input
+          type='text'
+          name='Last Name'
+          onChange={updateLastName}
+          value={lastName}
+        ></input>
+      </div>
+      <div>
+        <label>Areas of Interest</label>
+        <br/>
+        <input
+          type='text'
+          name='What Interest You?'
+          onChange={updateAreasOfInterest}
+          value={areasOfInterest}
+        ></input>
+      </div>
+      <div>
+        <label>Biography</label>
+        <br/>
+        <input
+          type='text'
+          name='Tell Us About Yourself!'
+          onChange={updateBiography}
+          value={biography}
+        ></input>
+      </div>
+      <div>
         <label>User Name</label>
+        <br/>
         <input
           type='text'
           name='username'
@@ -60,6 +118,7 @@ const SignUpForm = () => {
       </div>
       <div>
         <label>Email</label>
+        <br/>
         <input
           type='text'
           name='email'
@@ -69,6 +128,7 @@ const SignUpForm = () => {
       </div>
       <div>
         <label>Password</label>
+        <br/>
         <input
           type='password'
           name='password'
@@ -78,6 +138,7 @@ const SignUpForm = () => {
       </div>
       <div>
         <label>Repeat Password</label>
+        <br/>
         <input
           type='password'
           name='repeat_password'
