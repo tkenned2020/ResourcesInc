@@ -38,6 +38,7 @@ function Material() {
                              material.userId === 2 ? "MarcusG44" : null
                              }</strong>
         </div>
+        <br/>
         <div><button type="button">Comment</button> <button type="button">Edit</button> <button type="button">Delete</button>
         </div>
       </div>
