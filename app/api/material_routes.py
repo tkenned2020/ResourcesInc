@@ -1,7 +1,8 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.forms.material_form import MaterialCreationForm, EditMaterialForm
 from app.models import db, MaterialDocumentations
+
 
 material_routes = Blueprint('materials', __name__)
 
@@ -38,7 +39,9 @@ def get_material(id):
     """
     material = MaterialDocumentations.query.get(id)
     if material:
+        # material_json = jsonify({ "payload" : { "material" : material.to_dict()}})
         return material.to_dict()
+        # return material_json
     else:
         return {f'There seems to be a disconnect, an error occurred trying to retrieve {material} from the database'}
 

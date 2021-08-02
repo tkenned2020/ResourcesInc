@@ -1,8 +1,9 @@
 /* create and define action types as constains */
 
-const ADD_MATERIAL = "session/ADD_MATERIAL";
-const SET_MATERIALS = "session/SET_MATERIALS";
-const DELETE_ONE = "session/DELETE_ONE";
+const ADD_MATERIAL = "material/ADD_MATERIAL";
+const SET_MATERIALS = "material/SET_MATERIALS";
+const SET_MATERIAL = "material/SET_MATERIAL";
+const DELETE_ONE = "material/DELETE_ONE";
 
 /* create and define action creators */
 
@@ -16,6 +17,13 @@ const setAllMaterialsToStore = (materials) => ({ //use to set all material to th
   type: SET_MATERIALS, //action type = action.type
   materials //payload = action.payload
 })
+
+const grabOneMaterialFromStore = (material) => ({
+  type: SET_MATERIAL, //action type = action.type})
+  material //payload = action.payload
+
+})
+
 
 const deleteMaterialFromStore = (materialId) => ({ //use to retrieve material that is destined for deletion from store
   type: DELETE_ONE, //action type = action.type
@@ -51,10 +59,35 @@ export const getMaterials = () => async (dispatch) => {
 }
 
 
-export const editMaterial = (materialToBeEdit) => async (dispatch) => {
-  const response = await fetch(`/api/materials/${materialToBeEdit.id}/edit`, {
+export const singleMaterial = (materialId) => async (dispatch) => {
+  const response = await fetch(`/api/materials/${materialId}`)
+  console.log('the response to the fetch call', response)
+
+  if (response.ok){
+    const oneMaterial = await response.json();
+    // console.log('oneMaterial.id ---->', oneMaterial)
+
+    console.log('this is for the win!', oneMaterial)
+    dispatch(grabOneMaterialFromStore(oneMaterial))
+    return oneMaterial;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  };
+  /*
+  this thunk grabs an existing material that to be displayed from the store/database
+  if unsuccessful, it will return null
+  */
+}
+
+export const editMaterial = (material) => async (dispatch) => {
+  const response = await fetch(`/api/materials/${material.id}`, {
     method: "PATCH",
-    body: JSON.stringify(materialToBeEdit),
+    body: JSON.stringify(material),
     headers: {
       "Content-Type": "application/json",
     },
@@ -96,7 +129,11 @@ export const deleteMaterial = (materialId) => async dispatch => {
 
 
 /* create and define initialstate */
-const initialState = {}
+const initialState = {
+  current: null,
+  all: {}
+  //state.material.materials
+}
 
 
 export default function reducer(state = initialState, action){
@@ -108,22 +145,28 @@ export default function reducer(state = initialState, action){
       newState[action.material.id] = action.material
       console.log('this is coming from the add_material case section', action.material)
       return { ...state, ...newState };
+    case SET_MATERIAL:
+      // newState.current = action.material
+
+      // console.log('---------- what is this (action.material)', action.material)
+      // console.log('---------- what about this (newState)', newState)
+      return { ...state, current : action.material };
     case SET_MATERIALS:
-      newState = {}
-      console.log(" is an Array --->", Array.isArray(action.materials))
-      console.log(" action.materials ----> ",action.materials)
-      console.log('array action.materials ---->',[action.materials])
-      console.log('----------------------------------')
-      console.log('what is this ',action.materials[0])
-      console.log('----------------------------------')
-      console.log('-------', Object.keys(action.materials))
-      console.log('-------', Object.values(action.materials))
-      console.log('what is this ', action)
+      newState = {...state}
+      // console.log(" is an Array --->", Array.isArray(action.materials))
+      // console.log(" action.materials ----> ",action.materials)
+      // console.log('array action.materials ---->',[action.materials])
+      // console.log('----------------------------------')
+      // console.log('what is this ',action.materials[0])
+      // console.log('----------------------------------')
+      // console.log('-------', Object.keys(action.materials))
+      // console.log('-------', Object.values(action.materials))
+      // console.log('what is this ', action)
       for(let key in action.materials){
         let material = action.materials[key]
-        newState[key] = material
+        newState.all[key] = material
       }
-      return { ...state, ...newState};
+      return newState;
     case DELETE_ONE:
       newState = Object.assign({}, state)
       delete newState[action.materialId]

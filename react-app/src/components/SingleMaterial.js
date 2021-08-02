@@ -1,24 +1,26 @@
-import React, { /*useState,*/ useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { singleMaterial } from '../store/material';
 
-import { getMaterials } from '../store/material';
-
-function Material() {
+function SingleMaterial() {
   const dispatch = useDispatch();
-  const materials = useSelector(state => Object.values(state.material.all))
-  console.log('what does this useSelector return', materials)
+  const { materialId } = useParams()
+  console.log('what does this useParams return', materialId)
 
 
-  useEffect( () => {
-    dispatch(getMaterials())
-  }, [dispatch])
+  useEffect(() => {
+    // console.log('is this the info i need?', id)
+    dispatch(singleMaterial(materialId))
+  }, [dispatch, materialId])
 
+const material = useSelector(state => state.material.current)
+console.log('this is material from singleMaterial', material)
 
-  return (
+  return material && (
     <div styles={{margin: '12px 13px 14px 15px'}}>
     <br/>
-    {materials.map((material, idx) => (
-      <div style={{border: 'solid', marginBottom: "12px"}} key={idx}>
+      <div style={{border: 'solid', marginBottom: "12px"}} key={material.id}>
         <h2 >{material.title}</h2>
         <div>
           <h3><strong>{
@@ -37,17 +39,15 @@ function Material() {
         <div><p>{material.content}</p></div>
         <div>constructed by: <strong>{material.userId === 1 ? "JacksonW21" : null ||
                              material.userId === 2 ? "MarcusG44" : null
-                             }</strong>
+        }</strong>
         </div>
         <br/>
         <div><button type="button">Comment</button> <button type="button">Edit</button> <button type="button">Delete</button>
         </div>
         <br/>
       </div>
-
-    ))}
     </div>
   );
 }
-export default Material;
+export default SingleMaterial;
 //

@@ -5,7 +5,7 @@ import materials from './material'
 
 const rootReducer = combineReducers({
   session,
-  materials,
+  "material" : materials,
 });
 
 

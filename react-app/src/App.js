@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Material from './components/Material';
+import SingleMaterial from './components/SingleMaterial';
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
 
@@ -47,9 +48,14 @@ function App() {
         <NavBar />
         <Material allMaterials={allMaterials} />
         </Route>
-        <Route path='/materials/materialId' exact={true}>
+        <Route path='/materials/:materialId' exact={true}>
         <NavBar />
+        <SingleMaterial />
         <h1>this is where an individual material will be displayed</h1>
+        </Route>
+        <Route path='/materials/:materialId/edit' exact={true}>
+        <NavBar />
+        <h1>this is where an individual material will be edited</h1>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
         <NavBar />
