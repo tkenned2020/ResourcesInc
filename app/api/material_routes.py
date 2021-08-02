@@ -23,7 +23,7 @@ def get_materials():
     this retrieves all of the material/documentation from the database
     """
     all_materials = MaterialDocumentations.query.all()
-
+    # print('what is this actually', [material.to_dict() for material in all_materials])
     if all_materials:
         return {"materials" : [material.to_dict() for material in all_materials]}
     else:

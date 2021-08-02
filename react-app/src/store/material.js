@@ -100,16 +100,30 @@ const initialState = {}
 
 
 export default function reducer(state = initialState, action){
+
   let newState;
   switch (action.type){
     case ADD_MATERIAL:
       newState = {}
       newState[action.material.id] = action.material
+      console.log('this is coming from the add_material case section', action.material)
       return { ...state, ...newState };
     case SET_MATERIALS:
       newState = {}
-      action.materials.forEach(material => (newState[material.id] = material))
-      return { ...state, ...newState };
+      console.log(" is an Array --->", Array.isArray(action.materials))
+      console.log(" action.materials ----> ",action.materials)
+      console.log('array action.materials ---->',[action.materials])
+      console.log('----------------------------------')
+      console.log('what is this ',action.materials[0])
+      console.log('----------------------------------')
+      console.log('-------', Object.keys(action.materials))
+      console.log('-------', Object.values(action.materials))
+      console.log('what is this ', action)
+      for(let key in action.materials){
+        let material = action.materials[key]
+        newState[key] = material
+      }
+      return { ...state, ...newState};
     case DELETE_ONE:
       newState = Object.assign({}, state)
       delete newState[action.materialId]

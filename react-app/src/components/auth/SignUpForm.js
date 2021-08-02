@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+/*<React.fragment></React.fragment> or <></> will allow you to return more than one JSX Element as the highest level tag*/
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
