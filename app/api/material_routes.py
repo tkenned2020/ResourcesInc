@@ -60,6 +60,7 @@ def create_material():
     form['subject'].data = request.json['material']['subject']
     form['synopsis'].data = request.json['material']['synopsis']
     form['content'].data = request.json['material']['content']
+    form['citation'].data = request.json['material']['citation']
 
     if form.validate_on_submit():
         material = request.json['material']
@@ -70,6 +71,7 @@ def create_material():
             title=material["title"],
             synopsis=material["synopsis"],
             content=material["content"],
+            citation=material['citation'],
             created_at=material["created_at"],
         )
         #adding and commiting to the database
@@ -97,7 +99,7 @@ def edit_material(id):
     form["subject"].data = request.json["subjectId"]
     form["synopsis"].data = request.json["synopsis"]
     form["content"].data = request.json["content"]
-
+    form["citation"].data = request.json["citation"]
 
     if form.validate_on_submit():
     #if successful, grabs the specific material by id
@@ -107,6 +109,7 @@ def edit_material(id):
         material.subjectId = form["subject"].data
         material.synopsis = form["synopsis"].data
         material.content = form["content"].data
+        material.citation = form["citation"].data
         material.created_at= form["created_at"].data
     #if successful, add the edited material's content to the database and return it
         db.session.add(material)

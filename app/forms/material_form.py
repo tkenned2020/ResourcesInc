@@ -11,7 +11,7 @@ class MaterialCreationForm(FlaskForm):
     subject = StringField("subject", validators=[DataRequired()])
     synopsis = StringField("synopsis", validators=[DataRequired()])
     content = StringField("content", validators=[DataRequired()])
-
+    citation = StringField("citation")
 
 
 class EditMaterialForm(FlaskForm):
@@ -19,3 +19,4 @@ class EditMaterialForm(FlaskForm):
     subject = StringField("subject", validators=[DataRequired()])
     synopsis = StringField("synopsis", validators=[DataRequired()])
     content = StringField("content", validators=[DataRequired()])
+    citation = StringField("citation")

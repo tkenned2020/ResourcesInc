@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getMaterials } from '../store/material';
 
+
+
 function Material() {
   const dispatch = useDispatch();
   const materials = useSelector(state => Object.values(state.material.all))
@@ -40,7 +42,9 @@ function Material() {
                              }</strong>
         </div>
         <br/>
-        <div><button type="button">Comment</button> <button type="button">Edit</button> <button type="button">Delete</button>
+        <div><button type="button">Comment</button>
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
         </div>
         <br/>
       </div>

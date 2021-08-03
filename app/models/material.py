@@ -10,6 +10,7 @@ class MaterialDocumentations(db.Model):
     title = db.Column(db.String(250), nullable=False)
     synopsis = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
+    citation = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     subject = db.relationship("Subjects", back_populates="material")
@@ -23,5 +24,6 @@ class MaterialDocumentations(db.Model):
             'subjectId' : self.subjectId,
             'title': self.title,
             'synopsis' : self.synopsis,
-            'content' : self.content
+            'content' : self.content,
+            'citation' : self.citation
         }

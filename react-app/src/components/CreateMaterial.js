@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
-export default function EditMaterialForm() {
+export default function CreateMaterialForm() {
   const dispatch = useDispatch();
   const { materialId } = useParams()
   const material = useSelector(state => state.material)
@@ -104,7 +104,7 @@ export default function EditMaterialForm() {
         ></input>
       </div>
 
-      <button type='submit'>Update Documentation</button>
+      <button type='submit'>Create Documentation</button>
     </form>
   )
 

@@ -59,15 +59,20 @@ export const getMaterials = () => async (dispatch) => {
 }
 
 
+export const createMaterial = () => async dispatch => {
+  const response = await fetch(`/api/materials/create`)
+}
+
+
 export const singleMaterial = (materialId) => async (dispatch) => {
   const response = await fetch(`/api/materials/${materialId}`)
-  console.log('the response to the fetch call', response)
+  // console.log('the response to the fetch call', response)
 
   if (response.ok){
     const oneMaterial = await response.json();
     // console.log('oneMaterial.id ---->', oneMaterial)
 
-    console.log('this is for the win!', oneMaterial)
+    // console.log('this is for the win!', oneMaterial)
     dispatch(grabOneMaterialFromStore(oneMaterial))
     return oneMaterial;
   } else if (response.status < 500) {
@@ -84,10 +89,12 @@ export const singleMaterial = (materialId) => async (dispatch) => {
   */
 }
 
-export const editMaterial = (material) => async (dispatch) => {
-  const response = await fetch(`/api/materials/${material.id}`, {
+export const editMaterial = (editMaterial) => async (dispatch) => {
+  console.log("this is editMaterial -->", editMaterial)
+  const response = await fetch(`/api/materials/${editMaterial.id}/edit`, {
+
     method: "PATCH",
-    body: JSON.stringify(material),
+    body: JSON.stringify(editMaterial),
     headers: {
       "Content-Type": "application/json",
     },
@@ -95,6 +102,7 @@ export const editMaterial = (material) => async (dispatch) => {
 
   if (response.ok){
     const editMaterialContent = await response.json();
+    console.log('this is the response.json()', editMaterialContent)
     dispatch(addMaterialToStore(editMaterialContent))
     return editMaterialContent;
   } else if (response.status < 500) {
@@ -141,10 +149,7 @@ export default function reducer(state = initialState, action){
   let newState;
   switch (action.type){
     case ADD_MATERIAL:
-      newState = {}
-      newState[action.material.id] = action.material
-      console.log('this is coming from the add_material case section', action.material)
-      return { ...state, ...newState };
+      return { ...state, current : action.material };
     case SET_MATERIAL:
       // newState.current = action.material
 
