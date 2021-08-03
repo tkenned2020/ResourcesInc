@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
+import LoginForm from './components/auth/LoginFormModal/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Material from './components/Material';
 import SingleMaterial from './components/SingleMaterial';
+import EditMaterial from './components/EditMaterial'
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
 
@@ -54,7 +55,8 @@ function App() {
         <h1>this is where an individual material will be displayed</h1>
         </Route>
         <Route path='/materials/:materialId/edit' exact={true}>
-        <NavBar />
+        <EditMaterial/>
+        <NavBar/>
         <h1>this is where an individual material will be edited</h1>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
