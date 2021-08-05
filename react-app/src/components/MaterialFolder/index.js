@@ -1,15 +1,17 @@
 import React, { /*useState,*/ useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { getMaterials } from '../store/material';
-
+import { NavLink } from 'react-router-dom';
+import { getMaterials } from '../../store/material';
+import styles from './Material.module.css'
 
 
 function Material() {
   const dispatch = useDispatch();
   const materials = useSelector(state => Object.values(state.material.all))
   console.log('what does this useSelector return', materials)
-
+  console.log(
+    'why isnt material.citation displayed', materials.citation
+  )
 
   useEffect( () => {
     dispatch(getMaterials())
@@ -17,7 +19,7 @@ function Material() {
 
 
   return (
-    <div styles={{margin: '12px 13px 14px 15px'}}>
+    <div className={styles.materialHolder} styles={{margin: '12px 13px 14px 15px'}}>
     <br/>
     {materials.map((material, idx) => (
       <div style={{border: 'solid', marginBottom: "12px"}} key={idx}>
@@ -35,6 +37,7 @@ function Material() {
           }
           </strong></h3>
         </div>
+        <div>{material.citation}</div>
         <div><h4>{material.synopsis}</h4></div>
         <div><p>{material.content}</p></div>
         <div>constructed by: <strong>{material.userId === 1 ? "JacksonW21" : null ||
@@ -42,8 +45,8 @@ function Material() {
                              }</strong>
         </div>
         <br/>
+
         <div><button type="button">Comment</button>
-        <button type="button">Edit</button>
         <button type="button">Delete</button>
         </div>
         <br/>

@@ -32,19 +32,30 @@ def get_materials():
 
 
 
-@material_routes.route('/<int:id>')
+@material_routes.route('/<int:id>', methods=['GET', 'DELETE'])
 def get_material(id):
-    """
-    this retrieves a single material/documentation
-    """
-    material = MaterialDocumentations.query.get(id)
-    if material:
-        # material_json = jsonify({ "payload" : { "material" : material.to_dict()}})
-        return material.to_dict()
-        # return material_json
-    else:
-        return {f'There seems to be a disconnect, an error occurred trying to retrieve {material} from the database'}
-
+    if request.method == "GET":
+        """
+        this retrieves a single material/documentation
+        """
+        material = MaterialDocumentations.query.get(id)
+        if material:
+            # material_json = jsonify({ "payload" : { "material" : material.to_dict()}})
+            return material.to_dict()
+            # return material_json
+        else:
+            return {f'There seems to be a disconnect, an error occurred trying to retrieve {material} from the database'}
+    elif request.method == "DELETE":
+        """
+        this retrieves a single material/documentation and destroys it
+        """
+        material = MaterialDocumentations.query.filter(MaterialDocumentations.id == id).delete()
+        print('is this the chosen one!?', material)
+        # db.session.delete(material)
+        db.session.commit()
+        # materials = MaterialDocumentations.query.all()
+        # return [mat.to_dict() for mat in materials ]
+        return {"message" : "thanks for your input"}
 
 
 @material_routes.route('/create', methods=['POST'])
@@ -55,24 +66,25 @@ def create_material():
     """
     form = MaterialCreationForm()
     #As written in the MaterialCreationForm(variables)
-    form['csrf_token'].data = request.cookies['csrf_token']
-    form['title'].data = request.json['material']['title']
-    form['subject'].data = request.json['material']['subject']
-    form['synopsis'].data = request.json['material']['synopsis']
-    form['content'].data = request.json['material']['content']
-    form['citation'].data = request.json['material']['citation']
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    # form['title'].data = request.json['material']['title']
+    # form['title'].data = request.json['title']
+    # form['subject'].data = request.json['material']['subject']
+    # form['synopsis'].data = request.json['material']['synopsis']
+    # form['content'].data = request.json['material']['content']
+    # form['citation'].data = request.json['material']['citation']
 
     if form.validate_on_submit():
-        material = request.json['material']
+        # material = request.json['material']
         #creating an instance of the MaterialDocumentations class
         material = MaterialDocumentations(
-            user_id=material["userId"],
-            subject_id=material["subjectId"],
-            title=material["title"],
-            synopsis=material["synopsis"],
-            content=material["content"],
-            citation=material['citation'],
-            created_at=material["created_at"],
+            userId = current_user.id,
+            subjectId = form.subject_id.data,
+            title = form.title.data,
+            synopsis = form.synopsis.data,
+            content = form.content.data,
+            citation = form.citation.data,
+
         )
         #adding and commiting to the database
         db.session.add(material)
@@ -95,35 +107,25 @@ def edit_material(id):
     form = EditMaterialForm()
 # right side is form var ------------- left side is the model var
     form["csrf_token"].data = request.cookies['csrf_token']
-    form["title"].data = request.json["title"]
-    form["subject"].data = request.json["subjectId"]
-    form["synopsis"].data = request.json["synopsis"]
-    form["content"].data = request.json["content"]
-    form["citation"].data = request.json["citation"]
-
+    # form["title"].data = request.json["title"]
+    # form["subject"].data = request.json["subjectId"]
+    # form["synopsis"].data = request.json["synopsis"]
+    # form["content"].data = request.json["content"]
+    # form["citation"].data = request.json["citation"]
+    print('will the form reveal its true colors?', form)
     if form.validate_on_submit():
+        print('was the form validated', form)
     #if successful, grabs the specific material by id
         material = MaterialDocumentations.query.get(id)
-
+        print('this is the material that we need', material.to_dict())
         material.title = form["title"].data
         material.subjectId = form["subject"].data
         material.synopsis = form["synopsis"].data
         material.content = form["content"].data
         material.citation = form["citation"].data
-        material.created_at= form["created_at"].data
+
     #if successful, add the edited material's content to the database and return it
-        db.session.add(material)
+        # db.session.add(material)
         db.session.commit()
         return material.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-
-@material_routes.route('/<int:id>', methods=['DELETE'])
-def delete_material(id):
-    """
-    this retrieves a single material/documentation and destroys it
-    """
-    material = MaterialDocumentations.query.get(id)
-    db.session.delete(material)
-    db.session.commit()
-    return {"Deletion": f'{material} has been erased'}

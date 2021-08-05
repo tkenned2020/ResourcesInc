@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { editMaterial } from "../store/material";
-import Dropdown from "./Dropdown";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { createMaterial } from "../../store/material";
+import Dropdown from "../Dropdown";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
-export default function CreateMaterialForm() {
+export default function CreatesMaterialForm() {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { materialId } = useParams()
-  const material = useSelector(state => state.material)
-  console.log("state => state.material", material)
+  // const { materialId } = useParams()
+  // const material = useSelector(state => state.material)
+  // console.log("state => state.material", material)
 
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
@@ -20,12 +21,37 @@ export default function CreateMaterialForm() {
   const [citation, setCitation] = useState("");
   const [erorrs, setErrors] = useState([])
 
-  const editSubmit = async e => {
+  const createSubmit = async e => {
     e. preventDefault()
-    const data = await dispatch(editMaterial(title, subject, synopsis, content, citation));
+    const data = await dispatch(createMaterial({title, subject, synopsis, content, citation}));
     if (data) setErrors(data)
+
+    if (data) {
+      return history.push(`/materials}`)
+    }
   };
 
+
+  useEffect(() => {
+    const errorArray = [];
+    if (!title) {
+      errorArray.push("title needs to be provided");
+    }
+    if (!subject) {
+      errorArray.push("subject needs to be provided");
+    }
+    if (!synopsis) {
+      errorArray.push("synopsis needs to be provided");
+    }
+    if (!content) {
+      errorArray.push("content needs to be provided");
+    }
+    if (!citation) {
+      errorArray.push("citation needs to be provided");
+    }
+
+    setErrors(errorArray);
+  }, [title, subject, synopsis, content, citation]);
 
 
   const updateTitle = (e) => {
@@ -43,6 +69,8 @@ export default function CreateMaterialForm() {
   const updateCitation = (e) => {
     setCitation(e.target.value);
   };
+
+
 // <div>
 //         {errors.map((error, ind) => (
 //           <div key={ind}>{error}</div>
@@ -51,7 +79,7 @@ export default function CreateMaterialForm() {
   // if(material) {return <Redirect to='/materials/:materialId'/>}
 
   return (
-    <form onSubmit={editSubmit}>
+    <form onSubmit={createSubmit}>
 
       <div>
         <label>Title</label>
@@ -66,12 +94,20 @@ export default function CreateMaterialForm() {
       <div>
         <label>Subject</label>
         <br/>
-        <input
-          type='text'
-          name='Subject'
+        <select value={subject}
+          placeholder="subject"
           onChange={updateSubject}
-          value={subject}
-        ></input>
+          >
+          <option value=''></option>
+          <option value={1}>Art</option>
+          <option value={2}>Mathematics</option>
+          <option value={3}>Welding</option>
+          <option value={4}>Automotive</option>
+          <option value={5}>Psychology</option>
+          <option value={6}>Software Development</option>
+          <option value={7}>Construction</option>
+          <option value={8}>Agriculture</option>
+        </select>
       </div>
       <div>
         <label>synopsis</label>

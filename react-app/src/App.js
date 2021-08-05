@@ -7,10 +7,11 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import Material from './components/Material';
+import Home from './components/Home';
+import MaterialFolder from './components/MaterialFolder';
 import SingleMaterial from './components/SingleMaterial';
 import EditMaterial from './components/EditMaterial'
-import CreateMaterialForm from './components/CreateMaterial';
+import CreatesMaterialForm from './components/CreateMaterialForm';
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
 
@@ -48,10 +49,10 @@ function App() {
         </Route>
         <Route path='/materials' exact={true}>
         <NavBar />
-        <Material allMaterials={allMaterials} />
+        <MaterialFolder allMaterials={allMaterials} />
         </Route>
         <ProtectedRoute path='/create' exact={true}>
-          <CreateMaterialForm/>
+          <CreatesMaterialForm/>
         </ProtectedRoute>
         <Route path='/materials/:materialId' exact={true}>
         <NavBar />
@@ -73,7 +74,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
         <NavBar />
-          <h1>My Home Page</h1>
+          <h1>you made it</h1>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

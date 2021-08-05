@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2370ffae2c50
+Revision ID: cc06201b04bf
 Revises: 
-Create Date: 2021-07-28 19:11:40.929374
+Create Date: 2021-08-04 18:22:31.966744
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2370ffae2c50'
+revision = 'cc06201b04bf'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,6 +43,8 @@ def upgrade():
     sa.Column('title', sa.String(length=250), nullable=False),
     sa.Column('synopsis', sa.Text(), nullable=False),
     sa.Column('content', sa.Text(), nullable=False),
+    sa.Column('citation', sa.String(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['subjectId'], ['subjects.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -52,7 +54,8 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('material_documentationId', sa.Integer(), nullable=False),
     sa.Column('comment', sa.Text(), nullable=False),
-    sa.ForeignKeyConstraint(['material_documentationId'], ['material_documentations.id'], ),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['material_documentationId'], ['material_documentations.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
