@@ -52,6 +52,7 @@ function App() {
         <MaterialFolder allMaterials={allMaterials} />
         </Route>
         <ProtectedRoute path='/create' exact={true}>
+        <NavBar />
           <CreatesMaterialForm/>
         </ProtectedRoute>
         <Route path='/materials/:materialId' exact={true}>

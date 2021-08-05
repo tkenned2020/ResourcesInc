@@ -40,11 +40,11 @@ export default function EditMaterialForm() {
 
   useEffect(() => {
     if (material) {
-      // setTitle(material.title);
-      // setSubject(material.subject);
-      // setSynopsis(material.synopsis);
-      // setContent(material.content);
-      // setCitation(material.citation);
+      setTitle(material.title);
+      setSubject(material.subject);
+      setSynopsis(material.synopsis);
+      setContent(material.content);
+      setCitation(material.citation);
     } else {
       dispatch(singleMaterial(Number(materialId)));
     }

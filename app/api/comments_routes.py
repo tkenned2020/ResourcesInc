@@ -22,11 +22,11 @@ def get_comments():
     this retrieves all of the material/documentation from the database
     """
     all_comments = Comments.query.all()
-    # print('what is this actually',  [comment.to_dict() for comment in all_comments])
+    print('what is this actually',  [comment.to_dict() for comment in all_comments])
     if all_comments:
         return {"comments" : [comment.to_dict() for comment in all_comments]}
     else:
         return {"There seems to be a disconnect, an error occurred trying to retrieve documentation from the database"}
 
 
-
+# @comments_routes.route()

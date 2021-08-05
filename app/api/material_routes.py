@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.forms.material_form import MaterialCreationForm, EditMaterialForm
-from app.models import db, MaterialDocumentations, Comments
+from app.forms.comment_form import CommentsForm, CommentsEditForm
+from app.models import db, MaterialDocumentations, Comments, Subjects
 
 
 material_routes = Blueprint('materials', __name__)
@@ -29,7 +30,6 @@ def get_materials():
         return {"materials" : [material.to_dict() for material in all_materials]}
     else:
         return {"There seems to be a disconnect, an error occurred trying to retrieve documentation from the database"}
-
 
 
 @material_routes.route('/<int:id>', methods=['GET', 'DELETE'])
@@ -66,20 +66,19 @@ def create_material():
     """
     form = MaterialCreationForm()
     #As written in the MaterialCreationForm(variables)
-    # form['csrf_token'].data = request.cookies['csrf_token']
-    # form['title'].data = request.json['material']['title']
-    # form['title'].data = request.json['title']
-    # form['subject'].data = request.json['material']['subject']
-    # form['synopsis'].data = request.json['material']['synopsis']
-    # form['content'].data = request.json['material']['content']
-    # form['citation'].data = request.json['material']['citation']
+    form['csrf_token'].data = request.cookies['csrf_token']
 
+    # data = request.get_json()
+    print('what is this ===>',form.data)
     if form.validate_on_submit():
+        subject = Subjects.query.get(form.subject.data)
+        print('what is subject ===>', subject)
+        print('what is form.subject.data ===>', form.subject.data)
         # material = request.json['material']
         #creating an instance of the MaterialDocumentations class
         material = MaterialDocumentations(
             userId = current_user.id,
-            subjectId = form.subject_id.data,
+            subject = subject,
             title = form.title.data,
             synopsis = form.synopsis.data,
             content = form.content.data,
@@ -89,12 +88,13 @@ def create_material():
         #adding and commiting to the database
         db.session.add(material)
         db.session.commit()
+        return material.to_dict()
         #grabbing the newly created instance and returning it
-        id = material.id
-        newly_created_material = MaterialDocumentations.query.get(id)
-        new_material = newly_created_material.to_dict()
+        # id = material.id
+        # newly_created_material = MaterialDocumentations.query.get(id)
+        # new_material = newly_created_material.to_dict()
 
-        return {"new_material": new_material}
+        # return {"new_material": new_material}
     # if !validatated_on_submit
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
@@ -125,7 +125,53 @@ def edit_material(id):
         material.citation = form["citation"].data
 
     #if successful, add the edited material's content to the database and return it
-        # db.session.add(material)
+        db.session.add(material)
         db.session.commit()
         return material.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@material_routes.route('/<int:id>/comments/create', methods=['POST'])
+@login_required
+def create_comment():
+    """
+    this creates a comment under an individual material/documenation
+    """
+    form = CommentsForm()
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+        comment = Comments(
+        comment = form.comment.data
+        )
+
+        db.session.add(comment)
+        db.session.commit()
+
+        id = comment.id
+        newly_created_comment = Comments.query.get(id)
+        new_comment = newly_created_comment.to_dict()
+        return {"new_comment": new_comment}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+@material_routes.route('/<int:id>/comments/<int:id>', methods=['PATCH'])
+@login_required
+def edit_comment(id):
+    """
+    this edits an existing comment under an individual material/documenation
+    """
+    form = CommentsEditForm()
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        edit_comment = Comments(
+        comment = form.comment.data
+        )
+
+        db.session.add(edit_comment)
+        db.session.commit()
+        return edit_comment.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401

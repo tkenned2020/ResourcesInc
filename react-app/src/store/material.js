@@ -61,12 +61,12 @@ export const getMaterials = () => async (dispatch) => {
 }
 
 
-export const createMaterial = (material) => async (dispatch) => {
+export const createMaterial = (material, history) => async (dispatch) => {
   console.log('this is material from createMaterial', material)
   const response = await fetch(`/api/materials/create`, {
     method: "POST",
     headers: { 'Content-Type' : 'application/json'},
-    body: JSON.stringify({material}),
+    body: JSON.stringify(material),
 
   })
   // console.log('this is response.body', response.body)
@@ -75,8 +75,10 @@ export const createMaterial = (material) => async (dispatch) => {
     const newMaterial = await response.json()
     console.log("this is newMaterial from response.json")
     dispatch(setMaterialToStore(newMaterial))
+    history.push('/materials')
   } else if (response.status < 500) {
     const data = await response.json();
+    console.log("what is data", data)
     if (data.errors) {
       return data.errors;
     }

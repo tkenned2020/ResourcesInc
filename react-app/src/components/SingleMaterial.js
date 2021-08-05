@@ -68,7 +68,7 @@ function SingleMaterial() {
             <p>{material.content}</p>
           </div>
           <div>
-            <p>{material.citation}</p>
+          <div>{material.citation === null ? "Citations belong here" : material.citation}</div>
           </div>
           <div>
             constructed by:{" "}

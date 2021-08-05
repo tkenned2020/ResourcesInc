@@ -21,14 +21,14 @@ export default function CreatesMaterialForm() {
   const [citation, setCitation] = useState("");
   const [erorrs, setErrors] = useState([])
 
-  const createSubmit = async e => {
+  const createSubmit = e => {
     e. preventDefault()
-    const data = await dispatch(createMaterial({title, subject, synopsis, content, citation}));
+    const data = dispatch(createMaterial({title, subject, synopsis, content, citation}, history));
     if (data) setErrors(data)
 
-    if (data) {
-      return history.push(`/materials}`)
-    }
+    // if (data) {
+    //   return history.push(`/materials}`)
+    // }
   };
 
 

@@ -23,7 +23,7 @@ function Material() {
     <br/>
     {materials.map((material, idx) => (
       <div style={{border: 'solid', marginBottom: "12px"}} key={idx}>
-        <h2 >{material.title}</h2>
+        <h2 ><NavLink to={`/materials/${material.id}`}>{material.title}</NavLink> </h2>
         <div>
           <h3><strong>{
           material.subjectId === 1 ? "Art"  : null ||
@@ -37,9 +37,9 @@ function Material() {
           }
           </strong></h3>
         </div>
-        <div>{material.citation}</div>
         <div><h4>{material.synopsis}</h4></div>
         <div><p>{material.content}</p></div>
+        <div>{material.citation === null ? "Citations belong here" : material.citation}</div>
         <div>constructed by: <strong>{material.userId === 1 ? "JacksonW21" : null ||
                              material.userId === 2 ? "MarcusG44" : null
                              }</strong>
