@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.forms.material_form import MaterialCreationForm, EditMaterialForm
-from app.models import db, MaterialDocumentations
+from app.models import db, MaterialDocumentations, Comments
 
 
 material_routes = Blueprint('materials', __name__)
