@@ -7,15 +7,15 @@ from app.models import MaterialDocumentations
 
 
 class MaterialCreationForm(FlaskForm):
-    title = StringField("title", validators=[DataRequired(), Length(min=1, max=250, message="title must be less than or equal to 250 characters")])
+    title = StringField("title", validators=[DataRequired(message="this title needs to be provided"), Length(min=1, max=250, message="title must be less than or equal to 250 characters")])
     subject = StringField("subject", validators=[DataRequired()])
     synopsis = StringField("synopsis", validators=[DataRequired()])
     content = StringField("content", validators=[DataRequired()])
-
-
+    citation = StringField("citation")
 
 class EditMaterialForm(FlaskForm):
-    title = StringField("title", validators=[DataRequired(), Length(min=1, max=250, message="title must be less than or equal to 250 characters")])
+    title = StringField("title", validators=[DataRequired(message="this title needs to be provided"), Length(min=1, max=250, message="title must be less than or equal to 250 characters")])
     subject = StringField("subject", validators=[DataRequired()])
     synopsis = StringField("synopsis", validators=[DataRequired()])
     content = StringField("content", validators=[DataRequired()])
+    citation = StringField("citation")

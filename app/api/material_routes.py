@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.forms.material_form import MaterialCreationForm, EditMaterialForm
-from app.models import db, MaterialDocumentations
+from app.forms.comment_form import CommentsForm, CommentsEditForm
+from app.models import db, MaterialDocumentations, Comments, Subjects
 
 
 material_routes = Blueprint('materials', __name__)
@@ -31,20 +32,30 @@ def get_materials():
         return {"There seems to be a disconnect, an error occurred trying to retrieve documentation from the database"}
 
 
-
-@material_routes.route('/<int:id>')
+@material_routes.route('/<int:id>', methods=['GET', 'DELETE'])
 def get_material(id):
-    """
-    this retrieves a single material/documentation
-    """
-    material = MaterialDocumentations.query.get(id)
-    if material:
-        # material_json = jsonify({ "payload" : { "material" : material.to_dict()}})
-        return material.to_dict()
-        # return material_json
-    else:
-        return {f'There seems to be a disconnect, an error occurred trying to retrieve {material} from the database'}
-
+    if request.method == "GET":
+        """
+        this retrieves a single material/documentation
+        """
+        material = MaterialDocumentations.query.get(id)
+        if material:
+            # material_json = jsonify({ "payload" : { "material" : material.to_dict()}})
+            return material.to_dict()
+            # return material_json
+        else:
+            return {f'There seems to be a disconnect, an error occurred trying to retrieve {material} from the database'}
+    elif request.method == "DELETE":
+        """
+        this retrieves a single material/documentation and destroys it
+        """
+        material = MaterialDocumentations.query.filter(MaterialDocumentations.id == id).delete()
+        print('is this the chosen one!?', material)
+        # db.session.delete(material)
+        db.session.commit()
+        # materials = MaterialDocumentations.query.all()
+        # return [mat.to_dict() for mat in materials ]
+        return {"message" : "thanks for your input"}
 
 
 @material_routes.route('/create', methods=['POST'])
@@ -56,31 +67,34 @@ def create_material():
     form = MaterialCreationForm()
     #As written in the MaterialCreationForm(variables)
     form['csrf_token'].data = request.cookies['csrf_token']
-    form['title'].data = request.json['material']['title']
-    form['subject'].data = request.json['material']['subject']
-    form['synopsis'].data = request.json['material']['synopsis']
-    form['content'].data = request.json['material']['content']
 
+    # data = request.get_json()
+    print('what is this ===>',form.data)
     if form.validate_on_submit():
-        material = request.json['material']
+        subject = Subjects.query.get(form.subject.data)
+        print('what is subject ===>', subject)
+        print('what is form.subject.data ===>', form.subject.data)
+        # material = request.json['material']
         #creating an instance of the MaterialDocumentations class
         material = MaterialDocumentations(
-            user_id=material["userId"],
-            subject_id=material["subjectId"],
-            title=material["title"],
-            synopsis=material["synopsis"],
-            content=material["content"],
-            created_at=material["created_at"],
+            userId = current_user.id,
+            subject = subject,
+            title = form.title.data,
+            synopsis = form.synopsis.data,
+            content = form.content.data,
+            citation = form.citation.data,
+
         )
         #adding and commiting to the database
         db.session.add(material)
         db.session.commit()
+        return material.to_dict()
         #grabbing the newly created instance and returning it
-        id = material.id
-        newly_created_material = MaterialDocumentations.query.get(id)
-        new_material = newly_created_material.to_dict()
+        # id = material.id
+        # newly_created_material = MaterialDocumentations.query.get(id)
+        # new_material = newly_created_material.to_dict()
 
-        return {"new_material": new_material}
+        # return {"new_material": new_material}
     # if !validatated_on_submit
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
@@ -93,21 +107,23 @@ def edit_material(id):
     form = EditMaterialForm()
 # right side is form var ------------- left side is the model var
     form["csrf_token"].data = request.cookies['csrf_token']
-    form["title"].data = request.json["title"]
-    form["subject"].data = request.json["subjectId"]
-    form["synopsis"].data = request.json["synopsis"]
-    form["content"].data = request.json["content"]
-
-
+    # form["title"].data = request.json["title"]
+    # form["subject"].data = request.json["subjectId"]
+    # form["synopsis"].data = request.json["synopsis"]
+    # form["content"].data = request.json["content"]
+    # form["citation"].data = request.json["citation"]
+    print('will the form reveal its true colors?', form)
     if form.validate_on_submit():
+        print('was the form validated', form)
     #if successful, grabs the specific material by id
         material = MaterialDocumentations.query.get(id)
-
+        print('this is the material that we need', material.to_dict())
         material.title = form["title"].data
         material.subjectId = form["subject"].data
         material.synopsis = form["synopsis"].data
         material.content = form["content"].data
-        material.created_at= form["created_at"].data
+        material.citation = form["citation"].data
+
     #if successful, add the edited material's content to the database and return it
         db.session.add(material)
         db.session.commit()
@@ -115,12 +131,47 @@ def edit_material(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@material_routes.route('/<int:id>', methods=['DELETE'])
-def delete_material(id):
+@material_routes.route('/<int:id>/comments/create', methods=['POST'])
+@login_required
+def create_comment():
     """
-    this retrieves a single material/documentation and destroys it
+    this creates a comment under an individual material/documenation
     """
-    material = MaterialDocumentations.query.get(id)
-    db.session.delete(material)
-    db.session.commit()
-    return {"Deletion": f'{material} has been erased'}
+    form = CommentsForm()
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+        comment = Comments(
+        comment = form.comment.data
+        )
+
+        db.session.add(comment)
+        db.session.commit()
+
+        id = comment.id
+        newly_created_comment = Comments.query.get(id)
+        new_comment = newly_created_comment.to_dict()
+        return {"new_comment": new_comment}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+
+@material_routes.route('/<int:id>/comments/<int:id>', methods=['PATCH'])
+@login_required
+def edit_comment(id):
+    """
+    this edits an existing comment under an individual material/documenation
+    """
+    form = CommentsEditForm()
+    form["csrf_token"].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        edit_comment = Comments(
+        comment = form.comment.data
+        )
+
+        db.session.add(edit_comment)
+        db.session.commit()
+        return edit_comment.to_dict()
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401

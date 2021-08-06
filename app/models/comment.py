@@ -6,7 +6,7 @@ class Comments(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    material_documentationId = db.Column(db.Integer, db.ForeignKey("material_documentations.id"), nullable=False)
+    material_documentationId = db.Column(db.Integer, db.ForeignKey("material_documentations.id", ondelete="CASCADE"), nullable=False)
     comment = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

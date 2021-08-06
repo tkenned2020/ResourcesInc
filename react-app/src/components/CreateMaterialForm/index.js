@@ -1,54 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { editMaterial, singleMaterial } from "../store/material";
-import Dropdown from "./Dropdown";
-import { Redirect, useHistory } from "react-router-dom";
+import React, { useState, useEffect  } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { createMaterial } from "../../store/material";
+import Dropdown from "../Dropdown";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function EditMaterialForm() {
+
+
+export default function CreatesMaterialForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { materialId } = useParams();
-  const material = useSelector((state) => state.material.current);
-  console.log("state => state.material", material);
+  // const { materialId } = useParams()
+  // const material = useSelector(state => state.material)
+  // console.log("state => state.material", material)
 
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [content, setContent] = useState("");
   const [citation, setCitation] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [erorrs, setErrors] = useState([])
 
-  const editSubmit = async (e) => {
-    e.preventDefault();
-    const data = await dispatch(
-      editMaterial({
-        id: Number(materialId),
-        title,
-        subject,
-        synopsis,
-        content,
-        citation,
-      })
-    );
-    if (data) setErrors(data);
+  const createSubmit = e => {
+    e. preventDefault()
+    const data = dispatch(createMaterial({title, subject, synopsis, content, citation}, history));
+    if (data) setErrors(data)
 
-    if (material) {
-      return history.push(`/materials/${Number(materialId)}`)
-    }
+    // if (data) {
+    //   return history.push(`/materials}`)
+    // }
   };
 
-  useEffect(() => {
-    if (material) {
-      setTitle(material.title);
-      setSubject(material.subject);
-      setSynopsis(material.synopsis);
-      setContent(material.content);
-      setCitation(material.citation);
-    } else {
-      dispatch(singleMaterial(Number(materialId)));
-    }
-  }, [material]);
 
   useEffect(() => {
     const errorArray = [];
@@ -71,6 +53,7 @@ export default function EditMaterialForm() {
     setErrors(errorArray);
   }, [title, subject, synopsis, content, citation]);
 
+
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -86,25 +69,31 @@ export default function EditMaterialForm() {
   const updateCitation = (e) => {
     setCitation(e.target.value);
   };
+
+
 // <div>
-//         {errors && errors.map((error, ind) => <div key={ind}>{error}</div>)}
+//         {errors.map((error, ind) => (
+//           <div key={ind}>{error}</div>
+//         ))}
 //       </div>
+  // if(material) {return <Redirect to='/materials/:materialId'/>}
+
   return (
-    <form onSubmit={editSubmit}>
+    <form onSubmit={createSubmit}>
 
       <div>
         <label>Title</label>
-        <br />
+        <br/>
         <input
-          type="text"
-          name="Title"
+          type='text'
+          name='Title'
           onChange={updateTitle}
           value={title}
         ></input>
       </div>
       <div>
         <label>Subject</label>
-        <br />
+        <br/>
         <select value={subject}
           placeholder="subject"
           onChange={updateSubject}
@@ -122,36 +111,38 @@ export default function EditMaterialForm() {
       </div>
       <div>
         <label>synopsis</label>
-        <br />
+        <br/>
         <input
-          type="text"
-          name="synopsis"
+          type='text'
+          name='synopsis'
           onChange={updateSynopsis}
           value={synopsis}
         ></input>
       </div>
       <div>
         <label>Content</label>
-        <br />
+        <br/>
         <input
-          type="text"
-          name="Content"
+          type='text'
+          name='Content'
           onChange={updateContent}
           value={content}
         ></input>
       </div>
       <div>
         <label>Citation</label>
-        <br />
+        <br/>
         <input
-          type="text"
-          name="Citation"
+          type='text'
+          name='Citation'
           onChange={updateCitation}
           value={citation}
         ></input>
       </div>
 
-      <button type="submit">Update Documentation</button>
+      <button type='submit'>Create Documentation</button>
     </form>
-  );
+  )
+
+
 }
