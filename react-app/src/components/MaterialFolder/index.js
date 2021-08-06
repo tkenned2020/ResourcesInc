@@ -2,27 +2,33 @@ import React, { /*useState,*/ useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getMaterials } from '../../store/material';
+import { getComments } from '../../store/comment';
+// import { }
 import styles from './Material.module.css'
 
 
-function Material() {
+export default function Material() {
   const dispatch = useDispatch();
   const materials = useSelector(state => Object.values(state.material.all))
+  const comments = useSelector(state => Object.values(state.comments.all))
   console.log('what does this useSelector return', materials)
-  console.log(
-    'why isnt material.citation displayed', materials.citation
-  )
+  console.log('what does this useSelector/comments return ', comments)
+
+
+  materials.map(material => console.log('show me the comments===>',material.comments))
 
   useEffect( () => {
     dispatch(getMaterials())
+    dispatch(getComments())
   }, [dispatch])
 
 
   return (
-    <div className={styles.materialHolder} styles={{margin: '12px 13px 14px 15px'}}>
+    <div className={styles.materialHolder}>
     <br/>
     {materials.map((material, idx) => (
-      <div style={{border: 'solid', marginBottom: "12px"}} key={idx}>
+      <React.Fragment>
+      <div className={styles.singleMaterial}  style={{border: 'solid', marginBottom: "12px"}} key={idx}>
         <h2 ><NavLink to={`/materials/${material.id}`}>{material.title}</NavLink> </h2>
         <div>
           <h3><strong>{
@@ -45,16 +51,16 @@ function Material() {
                              }</strong>
         </div>
         <br/>
-
-        <div><button type="button">Comment</button>
-        <button type="button">Delete</button>
-        </div>
-        <br/>
       </div>
 
+      <div>
+      {material.comments.map(comment => comment.comment)}
+      </div>
+    </React.Fragment>
     ))}
+    <br/>
+
     </div>
   );
 }
-export default Material;
 //

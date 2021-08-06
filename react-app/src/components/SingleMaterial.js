@@ -2,25 +2,37 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory, NavLink } from "react-router-dom";
 import { singleMaterial, deleteMaterial } from "../store/material";
+import { getComments, createComment } from "../store/comment";
+
 
 function SingleMaterial() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { materialId } = useParams()
-
+  const [comment, setComment] = useState('');
   const material = useSelector((state) => state.material.current);
   const user = useSelector(state => state.session.user)
-  console.log("will this show the user", user)
-
-  console.log("what does this useParams return", materialId);
+  const comments = useSelector(state => state.comments)
 
   useEffect(() => {
-
-    // console.log('is this the info i need?', id)
     if(materialId) dispatch(singleMaterial(materialId));
   }, [dispatch, materialId]);
 
-  console.log("this is material from singleMaterial", material);
+  const payload = {
+    userId : user.id,
+    comments : comment,
+    material_documentationId : materialId
+  }
+console.log('why is history undefined==>', history)
+  const handleCreateComment = e => {
+    e.preventDefault();
+
+    dispatch(createComment( payload, history))
+  }
+
+  useEffect( () => {
+    dispatch(createComment(payload))
+  })
 
   const handleDeleteMaterial = (e) => {
     e.preventDefault();
@@ -85,7 +97,19 @@ function SingleMaterial() {
           </div>
           <br />
           <div>
-            <button type="button">Comment</button>
+          <form onSubmit={handleCreateComment} >
+          <label>Comment</label>
+          <textarea
+          name="comment"
+          id="comment"
+          placeholder="Enter your comment"
+          value={comment}
+          onChange={e => setComment(e.target.value)}
+          required rows="10" cols="5"/>
+          <button type="submit">Comment</button>
+        </form>
+          {//<button type="button">Comment</button>
+          }
             <NavLink to={`/materials/${material.id}/edit`}>Edit</NavLink>
             <button type="button" onClick={handleDeleteMaterial}>
               Delete

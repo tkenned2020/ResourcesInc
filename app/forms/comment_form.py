@@ -8,9 +8,9 @@ from app.models import Comments
 
 class CommentsForm(FlaskForm):
     comments = StringField('comments', validators=[DataRequired()] )
+    
 
 
 class CommentsEditForm(FlaskForm):
     comments = StringField('comments', validators=[DataRequired()] )
-
- 
+    

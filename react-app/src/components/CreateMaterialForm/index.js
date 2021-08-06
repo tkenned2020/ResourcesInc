@@ -22,7 +22,7 @@ export default function CreatesMaterialForm() {
   const [erorrs, setErrors] = useState([])
 
   const createSubmit = e => {
-    e. preventDefault()
+    e.preventDefault()
     const data = dispatch(createMaterial({title, subject, synopsis, content, citation}, history));
     if (data) setErrors(data)
 

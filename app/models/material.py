@@ -41,7 +41,8 @@ class MaterialDocumentations(db.Model):
             'title': self.title,
             'synopsis' : self.synopsis,
             'content' : self.content,
-            'citation' : self.citation
+            'citation' : self.citation,
+            'comments' : [p.to_dict() for p in self.comment]
         }
 
     @property

@@ -94,7 +94,7 @@ export const singleMaterial = (materialId) => async (dispatch) => {
     const oneMaterial = await response.json();
     // console.log('oneMaterial.id ---->', oneMaterial)
 
-    console.log('this is for the win!', oneMaterial)
+    // console.log('this is for the win!', oneMaterial)
     dispatch(setMaterialToStore(oneMaterial))
     return oneMaterial;
   } else if (response.status < 500) {
