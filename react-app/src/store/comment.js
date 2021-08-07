@@ -44,7 +44,7 @@ export const getComments = () => async dispatch => {
 }
 
 
-export const createComment = (comment) => async dispatch => {
+export const createComment = (comment, history) => async dispatch => {
   const response = await fetch(`/api/materials/${comment.material_documentationId}/comments/create`, {
     method: 'POST',
     body: JSON.stringify(comment),
@@ -55,7 +55,9 @@ export const createComment = (comment) => async dispatch => {
   if (response.ok){
   const createdComment = await response.json()
   dispatch(addCommentToStore(createdComment))
-  return createdComment
+
+  // history.push(`/materials/${comment.material_documentationId}`)
+  // return createdComment
   } else {
   const data = await response.json()
   return data.errors
@@ -64,7 +66,7 @@ export const createComment = (comment) => async dispatch => {
 }
 
 
-export const editComment = (formObj, history ) => async dispatch => {
+export const editComment = (formObj, history) => async dispatch => {
   const {commentId, materialId, userId, comment } = formObj
   const data =  {commentId, materialId, userId, comment }
   console.log("show me data ==>", data)
@@ -77,7 +79,9 @@ export const editComment = (formObj, history ) => async dispatch => {
   if(response.ok){
     const editedComment = response.json();
     dispatch(addCommentToStore(editedComment))
-    return editedComment
+    history.push('/materials')
+    // history.push('/materials')
+    // return editedComment
   } else {
     const data = await response.json()
     return data.errors

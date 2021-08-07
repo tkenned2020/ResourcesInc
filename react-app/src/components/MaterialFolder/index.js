@@ -20,14 +20,14 @@ export default function Material() {
   }, [dispatch]);
 
   return (
-    <div className={styles.materialHolder}>
+    <div className={styles.materialholder} >
       <br />
       {materials.map((material, idx) => (
-        <React.Fragment>
+        <React.Fragment key={idx}>
           <div
-            className={styles.singleMaterial}
+            className={styles.singlematerial}
             style={{ border: "solid", marginBottom: "12px" }}
-            key={idx}
+
           >
             <h2>
               <NavLink to={`/materials/${material.id}`}>

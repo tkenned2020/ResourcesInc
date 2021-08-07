@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, NavLink, useParams } from 'react-router-dom';
-import { createComment, editComment, deleteComment } from '../../store/comment'
+import { useHistory, NavLink, useParams, Redirect } from 'react-router-dom';
+import { getComments, createComment, editComment, deleteComment } from '../../store/comment'
 
 
 export default function CommentEdit (){
@@ -13,6 +13,13 @@ export default function CommentEdit (){
   const material = useSelector((state) => state.material.current);
   const user = useSelector(state => state.session.user)
 
+  console.log("what is the material", material)
+  // console.log("what is the id of the comment", material.comments[0].id)
+
+  // useEffect( ()=> dispatch(getComments()))
+
+  const currentComment = material?.comments.filter(comment => comment.userId === user?.id)[0]
+  const commentId = currentComment?.id
 
   useEffect(()=>{
     if(material){
@@ -21,14 +28,21 @@ export default function CommentEdit (){
   },[])
 
   const handleEditComment = (commentId) => {
-    console.log('<------------->',materialId, commentId)
-    dispatch(editComment({
+    const currentComment = material.comments.filter(comment => comment.userId === user.id)[0]
+    commentId = currentComment.id
+     dispatch(editComment({
       commentId : commentId,
       materialId : material.id,
       userId : user.id,
       comment : material.comments.filter(comment => comment.id === Number(commentId))[0]?.comment,
     }, history))
-    setComment("")
+    if (comment){
+      console.log("what is material", comment)
+    }
+
+    // setComment("")
+    // if(material){history.push(`/materials/${material.id}`)}
+    // history.push(`/materials`)
   }
 
 

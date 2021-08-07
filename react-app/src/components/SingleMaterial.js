@@ -28,7 +28,7 @@ console.log('why is history undefined==>', history)
   const handleCreateComment = e => {
     e.preventDefault();
     dispatch(createComment(payload, history))
-
+    window.location.reload()
   }
 
 
@@ -47,7 +47,7 @@ console.log('why is history undefined==>', history)
 
   return (
     material && (
-      <div styles={{ margin: "12px 13px 14px 15px" }}>
+      <div key={material.id} styles={{ margin: "12px 13px 14px 15px" }}>
         <br />
         <div
           style={{ border: "solid", marginBottom: "12px" }}
@@ -114,7 +114,7 @@ console.log('why is history undefined==>', history)
           }
             <NavLink to={`/materials/${material.id}/edit`}>Edit</NavLink>
             <button type="button" onClick={handleDeleteMaterial}>
-              Delete
+              Delete 
             </button>
           </div>
           <br />
