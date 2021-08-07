@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory, NavLink } from "react-router-dom";
 import { singleMaterial, deleteMaterial } from "../store/material";
-import { getComments, createComment } from "../store/comment";
-
+import { getComments, createComment, editComment, deleteComment } from "../store/comment";
+import CommentEdit from './CommentFolder/EditComment';
 
 function SingleMaterial() {
   const history = useHistory();
@@ -24,15 +24,19 @@ function SingleMaterial() {
     material_documentationId : materialId
   }
 console.log('why is history undefined==>', history)
+
   const handleCreateComment = e => {
     e.preventDefault();
+    dispatch(createComment(payload, history))
 
-    dispatch(createComment( payload, history))
   }
 
-  useEffect( () => {
-    dispatch(createComment(payload))
-  })
+
+
+
+  const handleDeleteComment = (commentId, materialId) => {
+    dispatch(deleteComment(materialId, commentId , history))
+  }
 
   const handleDeleteMaterial = (e) => {
     e.preventDefault();
@@ -83,13 +87,11 @@ console.log('why is history undefined==>', history)
           <div>{material.citation === null ? "Citations belong here" : material.citation}</div>
           </div>
           <div>
-            constructed by:{" "}
+            constructed by:
             <strong>
-               {material.userId === 1
-                 ? "JacksonW21"
-                 : null || material.userId === 2
-                 ? "MarcusG44"
-                 : null
+               {material.userId === 1 ? "JacksonW21" : null
+               || material.userId === 2 ? "MarcusG44" : null
+               || material.userId === 3 ? "DemoUser" : null
             }
             {//user.username
             }
@@ -116,6 +118,18 @@ console.log('why is history undefined==>', history)
             </button>
           </div>
           <br />
+        </div>
+        <div>
+        {material.comments.map(comment => <div styles={{backgroundColor: "red"}} key={comment.id}>
+        <div>edit button will go here</div>
+        {comment.userId === 1 ? "JacksonW21" : null ||
+        comment.userId === 2 ? "MarcusG44" : null || comment.userId === 3 ? "DemoUser" : null} stated:
+        <br/>
+        {comment.comment}
+
+        <NavLink to="/comment/edit" value={comment.id} style={{backgroundColor: "lightblue", visibility: user.id === comment.userId ? "visible" : "hidden"}} >Edit</NavLink>
+        <button onClick={e => handleDeleteComment(e.target.value, materialId)}  materialId={material.id}value={comment.id} style={{backgroundColor: "red", visibility: user.id === comment.userId ? "visible" : "hidden"}}>delete</button>
+        </div>)}
         </div>
       </div>
     )

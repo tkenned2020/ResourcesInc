@@ -64,10 +64,13 @@ export const createComment = (comment) => async dispatch => {
 }
 
 
-export const editComment = ( comment, history ) => async dispatch => {
-  const response = await fetch(`/api/materials/:materialId/comments/${comment.id}/edit`, {
+export const editComment = (formObj, history ) => async dispatch => {
+  const {commentId, materialId, userId, comment } = formObj
+  const data =  {commentId, materialId, userId, comment }
+  console.log("show me data ==>", data)
+  const response = await fetch(`/api/materials/${materialId}/comments/${commentId}/edit`, {
     method: 'PATCH',
-    body: JSON.stringify(comment),
+    body: JSON.stringify(data),
     headers: { "Content-Type": "application/json"},
   })
 
@@ -82,9 +85,11 @@ export const editComment = ( comment, history ) => async dispatch => {
 }
 
 
-export const deleteComment = (commentId, history) => async dispatch => {
+export const deleteComment = ( formObj, history) => async dispatch => {
+  const {commentId, materialId, userId } = formObj
+  const data =  {commentId, materialId, userId }
   console.log('this is the comment to deletes id',commentId)
-  const response = await fetch(`/api/materials/:materialId/comments/${commentId}`, {
+  const response = await fetch(`/api/materials/${materialId}/comments/${commentId}`, {
     method : "DELETE",
 
   })

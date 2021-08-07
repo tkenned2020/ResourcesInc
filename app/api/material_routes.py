@@ -166,24 +166,31 @@ def edit_comment(materialId, id):
     """
     this edits an existing comment under an individual material/documenation
     """
-    form = CommentsEditForm()
-    form["csrf_token"].data = request.cookies['csrf_token']
+    data = request.get_json(force=True)
+    # form = CommentsEditForm()
+    # form["csrf_token"].data = request.cookies['csrf_token']
+    print('this is data---->', data)
 
-    if form.validate_on_submit():
-        edited_comment = Comments.query.get(id)
-        edited_comment.comments = form["comment"].data
-        edited_comment.userId = current_user.id,
-        edited_comment.material_documentationId = materialId,
-
-        db.session.add(edited_comment)
-        db.session.commit()
-        return edited_comment.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+    # if form.validate_on_submit():
+    edited_comment = Comments.query.get(id)
+    edited_comment.material_documentationId = data["materialId"]
+    edited_comment.userId = data["userId"]
+    edited_comment.comment = data["comment"]
+    # edited_comment.comments = form["comment"].data
+    # edited_comment.userId = current_user.id,
+    # edited_comment.material_documentationId = materialId,
+    db.session.add(edited_comment)
+    db.session.commit()
+    print('what is the edited comment', edited_comment)
+    return edited_comment.to_dict()
+    # return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 
 @material_routes.route('/<int:materialId>/comments/<int:id>', methods=["DELETE"])
-def delete_comment(id):
-    comment = Comments.query.filter(Comments.id == id).delete()
+def delete_comment(materialId,id):
+    comment = Comments.query.get(id)
+    # Comments.id ==
+    db.session.delete(comment)
     db.session.commit()
     return {"message" : "thanks for your input"}

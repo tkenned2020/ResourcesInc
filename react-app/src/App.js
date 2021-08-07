@@ -13,7 +13,7 @@ import SingleMaterial from './components/SingleMaterial';
 import EditMaterial from './components/EditMaterial'
 import CreatesMaterialForm from './components/CreateMaterialForm';
 import CreateComment from './components/CommentFolder/Comment.js';
-import CommentCreation from './components/CommentFolder/CreateComment.js';
+import CommentEdit from './components/CommentFolder/EditComment.js';
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
 
@@ -67,8 +67,8 @@ function App() {
         <EditMaterial/>
         <h1>this is where an individual material will be edited</h1>
         </Route>
-        <ProtectedRoute path='/comment/create' exact={true}>
-          <CommentCreation />
+        <ProtectedRoute path='/comment/edit' exact={true}>
+          <CommentEdit />
         </ProtectedRoute>
         <ProtectedRoute path='/users' exact={true} >
         <NavBar />
