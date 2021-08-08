@@ -41,21 +41,17 @@ const NavBar = () => {
             (<div>
               <button
                 type='button'
-                className={styles.demoBtn}
+                 className={styles.btn}
                 onClick={() => handleDemoLogin("jackson@ri.io", "password")}
               >Demo</button>
-              <NavLink to='/login' className={styles.logInLink}>Log in</NavLink>
-              <LogoutButton />
+              <NavLink to='/login' className={styles.btn}>Log in</NavLink>
+              <NavLink to='/sign-up' className={styles.btn}>Sign Up</NavLink>
+
+
+
             </div>)
           )}
         </section>
-            <NavLink to='/users' className={styles.navLink} exact={true} activeClassName='active'>
-              Users
-            </NavLink>
-
-
-
-
       </nav>
     </div>
   );
