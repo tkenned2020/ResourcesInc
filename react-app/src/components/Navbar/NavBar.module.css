@@ -1,0 +1,112 @@
+@import '../../vars.css';
+
+.navBar {
+  background-color: rgba(4, 21, 77, 0.863);
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 16px;
+  height: 65px;
+  justify-content: space-between;
+  line-height: 21px;
+  width: auto;
+  color: rgb(226, 38, 32);
+}
+
+.navLink{
+  color: rgb(226, 38, 32);
+  margin-left: 18px;
+  text-decoration: none;
+}
+
+.navBarLeft {
+  display: flex;
+  padding: 12px 0 12px 18px;
+  width: 300px;
+
+}
+
+.headerLink {
+  text-decoration: none;
+  color: inherit;
+  padding-right: 18px;
+  font-size: inherit;
+  width: 500px;
+}
+
+
+.headerLink:hover{
+  color: green;
+}
+
+.navBarCenter {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  text-decoration: none;
+  font-size: 27px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(226, 38, 32);
+}
+
+.navBarRight {
+
+  display: flex;
+  padding: 12px 24px 12px 0;
+  align-items: center;
+  justify-content: flex-end;
+  width: 300px;
+}
+
+.searchBtn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  outline: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  height: 21px;
+  margin-right: 20px;
+}
+
+.searchText {
+  cursor: pointer;
+}
+
+.searchIcon {
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.logInLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  font-size: inherit;
+  margin-left: 18px;
+}
+
+.discoverButton:hover,
+.projectLink:hover,
+.searchBtn:hover,
+.logInLink:hover,
+.demoBtn:hover {
+  color: var(--navBarHoverColor);
+}
+
+.demoBtn {
+  background-color: white;
+  border: none;
+  font-size: 14px;
+  padding: 0;
+  margin-bottom: 1px;
+  color: var(--navBarFontColor)
+}
