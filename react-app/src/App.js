@@ -15,7 +15,7 @@ import EditMaterial from './components/MaterialFolder/Edit/EditMaterial'
 import CreatesMaterialForm from './components/MaterialFolder/CreateMaterialForm';
 import CommentEdit from './components/CommentFolder/EditComment.js';
 import { authenticate } from './store/session';
-import { getMaterials } from './store/material';
+
 
 
 
