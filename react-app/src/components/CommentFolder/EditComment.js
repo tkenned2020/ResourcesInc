@@ -59,8 +59,6 @@ export default function CommentEdit (){
         required rows="10" cols="5"/>
         <button onClick={e => handleEditComment(e.target.value)}  value={comment.id} >Submit</button>
       </form>
-
-
     </div>
   )
 

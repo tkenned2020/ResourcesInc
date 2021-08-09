@@ -46,7 +46,7 @@ export default function Material() {
                     : null || material.subjectId === 5
                     ? "Psychology"
                     : null || material.subjectId === 6
-                    ? "Software_Development"
+                    ? "Software Development"
                     : null || material.subjectId === 7
                     ? "Construction"
                     : null || material.subjectId === 8

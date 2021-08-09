@@ -79,7 +79,7 @@ export const editComment = (formObj, history) => async dispatch => {
   if(response.ok){
     const editedComment = response.json();
     dispatch(addCommentToStore(editedComment))
-    history.push('/materials')
+
     // history.push('/materials')
     // return editedComment
   } else {
@@ -103,6 +103,7 @@ export const deleteComment = ( formObj, history) => async dispatch => {
     const updatedCommentList = data.comments
     console.log('what is data.comments ===>',updatedCommentList)
     dispatch(setCommentsToStore(updatedCommentList))
+    history.push(`/materials/${materialId}`)
   }
 
 }
