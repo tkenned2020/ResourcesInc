@@ -13,7 +13,6 @@ import MaterialFolder from './components/MaterialFolder';
 import SingleMaterial from './components/MaterialFolder/Individual/SingleMaterial';
 import EditMaterial from './components/MaterialFolder/Edit/EditMaterial'
 import CreatesMaterialForm from './components/MaterialFolder/CreateMaterialForm';
-import CommentEdit from './components/CommentFolder/EditComment.js';
 import { authenticate } from './store/session';
 
 
@@ -69,7 +68,6 @@ function App() {
         <Route path='/materials/:materialId/edit' exact={true}>
         <NavBar/>
         <EditMaterial/>
-        <CommentEdit />
         <PersistFooter />
         </Route>
         <ProtectedRoute path='/comment/edit' exact={true}>
