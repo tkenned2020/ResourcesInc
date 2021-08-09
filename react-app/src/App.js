@@ -10,9 +10,9 @@ import User from './components/User';
 import Home from './components/Home';
 import PersistFooter from './components/FooterComp'
 import MaterialFolder from './components/MaterialFolder';
-import SingleMaterial from './components/SingleMaterial';
-import EditMaterial from './components/EditMaterial'
-import CreatesMaterialForm from './components/CreateMaterialForm';
+import SingleMaterial from './components/MaterialFolder/Individual/SingleMaterial';
+import EditMaterial from './components/MaterialFolder/Edit/EditMaterial'
+import CreatesMaterialForm from './components/MaterialFolder/CreateMaterialForm';
 import CommentEdit from './components/CommentFolder/EditComment.js';
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
@@ -69,10 +69,11 @@ function App() {
         <Route path='/materials/:materialId/edit' exact={true}>
         <NavBar/>
         <EditMaterial/>
+        <CommentEdit />
         <PersistFooter />
         </Route>
         <ProtectedRoute path='/comment/edit' exact={true}>
-          <CommentEdit />
+        <NavBar/>
           <PersistFooter />
         </ProtectedRoute>
         <ProtectedRoute path='/users' exact={true} >
@@ -85,11 +86,11 @@ function App() {
           <User />
           <PersistFooter />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        <Route path='/' exact={true} >
         <NavBar />
         <Home />
         <PersistFooter />
-        </ProtectedRoute>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

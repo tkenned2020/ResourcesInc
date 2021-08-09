@@ -20,22 +20,20 @@ export default function Material() {
   }, [dispatch]);
 
   return (
-    <div className={styles.materialholder} >
+    <div  className={styles.materialContainer}>
       <br />
       {materials.map((material, idx) => (
-        <React.Fragment key={idx}>
+        <div key={idx} className={styles.infoContainer}>
           <div
-            className={styles.singlematerial}
-            style={{ border: "solid", marginBottom: "12px" }}
-
+          className={styles.info}
           >
-            <h2>
-              <NavLink to={`/materials/${material.id}`}>
+            <h2 className={styles.infoTitle} >
+              <NavLink style={{textDecoration: "none"}} to={`/materials/${material.id}`}>
                 {material.title}
-              </NavLink>{" "}
+              </NavLink>
             </h2>
             <div>
-              <h3>
+              <h3 className={styles.infoSubject}>
                 <strong>
                   {material.subjectId === 1
                     ? "Art"
@@ -57,19 +55,19 @@ export default function Material() {
                 </strong>
               </h3>
             </div>
-            <div>
+            <div className={styles.infoSynopsis}>
               <h4>{material.synopsis}</h4>
             </div>
-            <div>
+            <div className={styles.infoContentContainer}>
               <p>{material.content}</p>
             </div>
-            <div>
+            <div className={styles.infoCitation}>
               {material.citation === null
                 ? "Citations belong here"
-                : material.citation}
+                : `Citations: ${material.citation}`}
             </div>
-            <div>
-              constructed by:{" "}
+            <div className={styles.infoAuthor}>
+            <p>Constructed By: </p>
               <strong>
                 {material.userId === 1
                   ? "JacksonW21"
@@ -77,34 +75,39 @@ export default function Material() {
                   ? "MarcusG44"
                   : null || material.userId === 3
                   ? "DemoUser"
-                  : null}
+                  : null || material.userId === 4
+                  ? "TestUser"
+                  : null
+                }
               </strong>
             </div>
             <br />
           </div>
 
-          <div>
+          <div className={styles.commentContainer}>
+            <label>Comment Section</label>
             {material.comments.map((comment) => (
-              <div styles={{ backgroundColor: "red" }} key={comment.id}>
-                {comment.userId === 1
-                  ? "JacksonW21"
-                  : null || comment.userId === 2
-                  ? "MarcusG44"
-                  : null || comment.userId === 3
-                  ? "DemoUser"
-                  : null || comment.userId === 4
-                  ? "testUser"
-                  : null}
-                stated:
-                <br />
-                {comment.comment}
-                <button>edit</button> <button>delete</button>
+
+              <div className={styles.infoCommentedSection} key={comment.id}>
+                <div className={styles.commentUserName}>
+                  {comment.userId === 1
+                    ? "JacksonW21"
+                    : null || comment.userId === 2
+                    ? "MarcusG44"
+                    : null || comment.userId === 3
+                    ? "DemoUser"
+                    : null || comment.userId === 4
+                    ? "testUser"
+                    : null}
+                  stated:
+                  <br />
+                  </div>
+                  {comment.comment}
               </div>
             ))}
           </div>
-        </React.Fragment>
+        </div>
       ))}
-      <br />
     </div>
   );
 }

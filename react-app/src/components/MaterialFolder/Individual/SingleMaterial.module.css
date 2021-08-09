@@ -1,40 +1,21 @@
-body {
-  background-color: crimson;
-  /* display: inline-flex;
-  position: relative;
-  background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/4k-Images-Free-Download.jpg');
+.singleMaterialContainer {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  background-image: url('https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wave-images.jpg');
   background-size: cover;
   background-position: -35px -60px;
   background-repeat: no-repeat;
   background-position: center;
-  max-height: 1000px; */
-}
-
-.materialContainer {
-  /* display: flex;
-  justify-content: center; */
-  flex-direction: column;
   font-size: 14px;
-  height: fit-content;
-  line-height: 24px;
+  height: 900px;
+  /* line-height: 24px; */
   padding: 6px;
   box-decoration-break: clone;
-  overflow-y: scroll;
 }
-
-.materialContainer::-webkit-scrollbar{
-  display: none;
-}
-
-
-.infoContainer::-webkit-scrollbar{
-  display: none;
-}
-
 
 .infoContainer{
   display: flex;
-  position: relative;
   /* align-content: center; */
   justify-content: center;
   flex-direction: column;
@@ -44,15 +25,11 @@ body {
   margin-left: 13%;
   margin-bottom: 1%;
   overflow-y: scroll;
-  /* height: 100%; */
-  background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/4k-Images-Free-Download.jpg');
-  background-size: cover;
-  background-position: -35px -60px;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
-
+.infoContainer::-webkit-scrollbar{
+  display: none;
+}
 
 .info{
   /* display: flex; */
@@ -66,7 +43,7 @@ body {
   font-size: 27px;
   width: 50%;
   /* margin-top: auto; */
-  margin-top: 10%;
+  margin-top: 100%;
   margin-left: 22.9%;
   background-color: rgba(255, 255, 255, 0.685);
   box-shadow: 3px 7px 20px 9px rgba(44, 32, 218, 0.712);
@@ -151,20 +128,33 @@ body {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+.commentContainer textarea{
+  display: flex;
+  justify-self: center;
+  width: 70%;
+  margin-left: 12%;
+  /* margin-top: 5%; */
+  opacity: 0.85;
+  box-shadow: 9px 1px 20px 16px rgba(0, 128, 0, 0.431);
+  padding: 12px;
+  margin-bottom: 18px;
+  font-size: 17px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
 
 .infoContainer label{
   color: rgb(13, 5, 90);
   margin-left: 33%;
+  margin-bottom: 20px;
   font-size: 19px;
   display: flex;
   box-shadow: 3px 7px 20px 9px rgba(44, 32, 218, 0.712);
   background-color: rgba(255, 255, 255, 0.835);
-  width: 15%;
+  width: 8%;
   margin-block-start: 1%;
   margin-top: 10%;
-  margin-bottom: 10px;
-  margin-left: 3%;
+  margin-left: 13%;
   font-size: 16px;
   padding: 10px;
   border-radius: 20px;
@@ -206,7 +196,7 @@ body {
   width: 88%;
   border-bottom: solid 1px black;
   margin-block-start: 1%;
-  /* margin-top: 10%; */
+  margin-top: 10%;
   margin-left: 3%;
   font-size: 16px;
   padding: 10px;
@@ -216,6 +206,7 @@ body {
 
 .commentUserName{
   color: red;
+  margin-bottom: 5px;
 }
 
 

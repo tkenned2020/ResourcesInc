@@ -1,14 +1,13 @@
 @import '../../vars.css';
 
 .navBar {
-  background-color: rgba(4, 21, 77, 0.863);
   display: flex;
+  background-color: rgba(4, 21, 77, 0.863);
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 16px;
   height: 65px;
   justify-content: space-around;
   align-items: center;
-  /* align-content: center; */
   line-height: 21px;
   width: auto;
 

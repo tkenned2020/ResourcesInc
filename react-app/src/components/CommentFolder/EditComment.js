@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, NavLink, useParams, Redirect } from 'react-router-dom';
 import { getComments, createComment, editComment, deleteComment } from '../../store/comment'
-
+import styles from './EditComment.module.css'
 
 export default function CommentEdit (){
   const history = useHistory();
@@ -34,7 +34,7 @@ export default function CommentEdit (){
       commentId : commentId,
       materialId : material.id,
       userId : user.id,
-      comment : material.comments.filter(comment => comment.id === Number(commentId))[0]?.comment,
+      comment : material.comments?.filter(comment => comment.id === Number(commentId))[0]?.comment,
     }, history))
     if (comment){
       console.log("what is material", comment)
@@ -47,7 +47,7 @@ export default function CommentEdit (){
 
 
   return (
-    <div>
+    <div className={styles.commentContainer}>
       <form onSubmit={handleEditComment} >
         <label>Comment</label>
         <textarea

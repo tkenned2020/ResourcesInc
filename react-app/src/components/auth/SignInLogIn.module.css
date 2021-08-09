@@ -46,6 +46,7 @@
   margin: 6px 0 20px 0;
   color: var(--navBarFontColor);
   font-size: 28px;
+  cursor: pointer;
 }
 
 .loginTitle:hover {

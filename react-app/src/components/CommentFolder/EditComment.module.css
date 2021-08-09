@@ -1,0 +1,13 @@
+.commentContainer textarea{
+  display: flex;
+  justify-self: center;
+  width: 70%;
+  margin-left: 12%;
+  /* margin-top: 5%; */
+  opacity: 0.85;
+  box-shadow: 9px 1px 20px 16px rgba(0, 128, 0, 0.431);
+  padding: 12px;
+  margin-bottom: 18px;
+  font-size: 17px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
