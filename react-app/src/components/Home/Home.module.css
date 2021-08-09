@@ -1,0 +1,77 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/07/4k-Images-Free-Download.jpg');
+  background-size: cover;
+  background-position: -35px -60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 14px;
+  height: 900px;
+  /* line-height: 24px; */
+  padding: 6px;
+  box-decoration-break: clone;
+}
+
+.headerContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.headerContainer h1{
+  color: white;
+  padding: 12px;
+  font-size: 96px;
+  box-shadow: 9px 1px 20px 16px grey;
+}
+
+.headerContainer h1:hover{
+  color: Red;
+  font-size: 96px;
+}
+
+
+.subHeaderContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.subHeaderContainer h2,
+.triHeaderContainer h2{
+  color: white;
+  padding: 12px;
+  font-size: 66px;
+  box-shadow: 9px 1px 20px 16px grey;
+}
+
+.subHeaderContainer h2:hover,
+.triHeaderContainer h2:hover {
+  color: Red;
+  font-size: 86px;
+}
+
+.triHeaderContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.messageContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 90px;
+}
+
+.messageContainer p {
+ width: 80%;
+  color: white;
+  font-size: 36px;
+  padding: 10px;
+  box-shadow: 9px 1px 20px 16px grey;
+}
+
+.messageContainer p:hover{
+  color: Red;
+}

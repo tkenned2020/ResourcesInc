@@ -12,7 +12,7 @@ def seed_materials():
         userId = 1,
         subjectId = 1,
         title = "What is art?",
-        synopsis = "This article gives a high overview what art is",
+        synopsis = "This article gives a high overview of what art is",
         content = '''Art is a skill aquired by experience, study,
                     or observation. as an example 'the ART of making friends
                     comes with the experience of interacting with others and
@@ -31,7 +31,7 @@ def seed_materials():
         userId = 2,
         subjectId = 2,
         title = "What is mathematics?",
-        synopsis = "This article gives a high overview what Mathematics is",
+        synopsis = "This article gives a high overview of what Mathematics is",
         content = '''Mathematics is the science that deals with the logic of shape, quantity and arrangement. Math is all around us, in everything we do. It is the building block for everything in our daily lives, including mobile devices, architecture (ancient and modern), art, money, engineering, and even sports.
                     ''',
         created_at = "2021-07-21 5:35:14"
@@ -41,7 +41,7 @@ def seed_materials():
          userId = 1,
         subjectId = 3,
         title = "What is Welding?",
-        synopsis = "This article gives a high overview what Welding is",
+        synopsis = "This article gives a high overview of what Welding is",
         content = '''Welding is a fabrication process whereby two or more parts are fused together by means of heat, pressure or both forming a join as the parts cool. Welding is usually used on metals and thermoplastics but can also be used on wood. The completed welded joint may be referred to as a weldment.''',
         created_at = "2021-07-21 5:35:14"
     )
@@ -50,7 +50,7 @@ def seed_materials():
         userId = 2,
         subjectId = 4,
         title = "What is Automotive?",
-        synopsis = "This article gives a high overview what Automotive is",
+        synopsis = "This article gives a high overview of what Automotive is",
         content = '''The definition of automotive is moved by a self-contained motor or engine or something that has to do with automobiles. A car is an example of something that is automotive.''',
         created_at = "2021-05-21 14:35:14"
     )
@@ -59,7 +59,7 @@ def seed_materials():
         userId = 1,
         subjectId = 5,
         title = "What is Psychology?",
-        synopsis = "This article gives a high overview what Psychology is",
+        synopsis = "This article gives a high overview of what Psychology is",
         content = '''Psychology is the scientific study of the mind and behavior. Psychologists are actively involved in studying and understanding mental processes, brain functions, and behavior. The field of psychology is considered a "Hub Science" with strong connections to the medical sciences, social sciences, and education (Boyack, Klavans, & Borner, 2005).''',
         created_at = "2021-01-21 1:59:24"
     )
@@ -68,7 +68,7 @@ def seed_materials():
         userId = 2,
         subjectId = 6,
         title = "What is Software Development?",
-        synopsis = "This article gives a high overview what Software Development is",
+        synopsis = "This article gives a high overview of what Software Development is",
         content = '''Software development is the process that relates to the creation of individual software programs by using specialized and specific computer programming languages. This process is extremely comprehensive and varies depending on the type of software being developed; however, software development typically includes the conception, design, programming, testing, and bug fixing of a piece of software, network, or application.''',
         created_at = "2021-07-21 11:19:34"
     )
@@ -77,7 +77,7 @@ def seed_materials():
         userId = 1,
         subjectId = 7,
         title = "What is Construction?",
-        synopsis = "This article gives a high overview what Contruction is",
+        synopsis = "This article gives a high overview of what Contruction is",
         content = '''Construction is a general term meaning the art and science to form objects, systems, or organizations,[1] and comes from Latin constructio (from com- "together" and struere "to pile up") and Old French construction.[2] To construct is the verb: the act of building, and the noun is construction: how something is built, the nature of its structure.''',
         created_at = "2021-12-21 15:39:39"
     )
@@ -86,9 +86,18 @@ def seed_materials():
         userId = 2,
         subjectId = 8,
         title = "What is Agriculture?",
-        synopsis = "This article gives a high overview what Agriculture is",
+        synopsis = "This article gives a high overview of what Agriculture is",
         content = '''Agriculture is the art and science of cultivating the soil, growing crops and raising livestock. It includes the preparation of plant and animal products for people to use and their distribution to markets.''',
         created_at = "2021-10-21 20:49:09"
+    )
+    # Art = Subject(id=1)
+    material9 = MaterialDocumentations(
+        userId = 3,
+        subjectId = 1,
+        title = "What is Contemporary Art?",
+        synopsis = "This article gives a high overview of what Contemporary Art is",
+        content = '''Contemporary Art is a sub-section of Art.''',
+        created_at = "2020-10-21 20:49:09"
     )
 
     materials = [material1,
@@ -99,6 +108,7 @@ def seed_materials():
                  material6,
                  material7,
                  material8,
+                 material9,
     ]
 
     for material in materials:

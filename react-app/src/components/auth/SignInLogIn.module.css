@@ -1,0 +1,192 @@
+@import '../../vars.css';
+
+.formBackground {
+  background-color: var(--formBackgroundColor);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+
+.loginFormContainer {
+  border: 1px solid var(--borderColor);
+  box-sizing: border-box;
+  width: 400px;
+  background-color: rgb(245, 244, 244);
+  /* margin: 60px 0 0 0; */
+  border-radius: 0 0 30px 30px;
+  padding: 20px 30px;
+  height: fit-content;
+}
+
+.signUpFormContainer {
+  border: 1px solid var(--borderColor);
+  box-sizing: border-box;
+  width: 400px;
+  background-color: rgb(245, 244, 244);
+  margin: 0 0 60px 0;
+  border-radius: 1px;
+  padding: 20px 30px;
+  height: fit-content;
+  border-radius: 0 0 30px 30px;
+  /* height: 400px; */
+  overflow-y: scroll;
+}
+
+.signUpFormContainer::-webkit-scrollbar{
+  display: none;
+}
+
+.loginTitle {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 20px 0;
+  color: var(--navBarFontColor);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.loginTitle:hover {
+  color: red;
+}
+
+.input {
+  border: 1px solid var(--borderColor);
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 18px;
+  width: 100%;
+  transition: 200ms border;
+}
+
+.input:focus {
+  border: 1px solid red;
+  outline: none;
+}
+
+label {
+  margin-left: 10px;
+}
+
+label:hover {
+  color: red;
+
+}
+
+.btn {
+  background-color: rgb(2, 136, 88);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px 18px;
+  width: 100%;
+  transition: background-color 200ms;
+
+}
+
+.btn:hover {
+  background-color: var(--primaryButtonColorHover);
+}
+
+.logInLinkContainer {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid var(--borderColor);
+  background-color: white;
+  border-bottom: none;
+  width: 400px;
+  margin-top: 60px;
+  background-color: #fcfcfb;
+  border-radius: 30px 30px 0 0;
+}
+.signUpLinkContainer {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 120px;
+  border-radius: 30px 30px 0 0;
+  border: 1px solid var(--borderColor);
+  background-color: rgb(245, 244, 244);
+  border-top: none;
+  width: 400px;
+}
+
+.signUpLink {
+  text-decoration: none;
+  color: rgb(29, 129, 9);
+  margin: 12px;
+  border: 1px solid;
+  border-radius: 30px;
+
+}
+
+.signUpLink:hover {
+  color: rgba(163, 10, 10, 0.87)
+}
+
+
+.logInLink {
+  text-decoration: none;
+  color: rgb(29, 129, 9);
+  margin: 12px;
+  border: 1px solid;
+  border-radius: 30px;
+}
+
+.logInLink:hover {
+  color: rgba(163, 10, 10, 0.87)
+}
+
+.btnContainer {
+  display: flex;
+}
+
+.btn {
+  padding: 10px 18px;
+  width: 100%;
+  background-color: rgb(29, 129, 9);
+  color: white;
+  /* margin-left: 20px; */
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+
+.btn:hover {
+  background-color:  rgba(163, 10, 10, 0.87);
+}
+
+.errorsContainer {
+  padding: 10px 20px;
+  background-color: rgba(163, 10, 10, 0.87);
+  color: white;
+  border-radius: 40px 40px 40px 40px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  line-height: 24px;
+}
+
+.logOutBtn {
+  display: flex;
+  float: left;
+  padding: 6px 18px 19px;
+  /* width: 100%; */
+  height: 35px;
+  background-color: rgb(29, 129, 9);
+  color: white;
+  padding-top: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 1px;
+  text-decoration: none;
+  /* border-radius: 20px; */
+  border: none;
+  cursor: pointer;
+}

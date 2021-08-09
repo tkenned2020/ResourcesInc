@@ -50,7 +50,7 @@ def get_material(id):
         this retrieves a single material/documentation and destroys it
         """
         material = MaterialDocumentations.query.filter(MaterialDocumentations.id == id).delete()
-        print('is this the chosen one!?', material)
+        # print('is this the chosen one!?', material)
         # db.session.delete(material)
         db.session.commit()
         # materials = MaterialDocumentations.query.all()
@@ -132,18 +132,20 @@ def edit_material(id):
 
 
 @material_routes.route('/<int:id>/comments/create', methods=['POST'])
-@login_required
-def create_comment():
+# @login_required
+def create_comment(id):
     """
     this creates a comment under an individual material/documenation
     """
     form = CommentsForm()
     form["csrf_token"].data = request.cookies['csrf_token']
-
+    print('this is form.comments.data', form.comments.data)
 
     if form.validate_on_submit():
         comment = Comments(
-        comment = form.comment.data
+        comment = form.comments.data,
+        userId = current_user.id,
+        material_documentationId = id,
         )
 
         db.session.add(comment)
@@ -157,21 +159,38 @@ def create_comment():
 
 
 
-@material_routes.route('/<int:id>/comments/<int:id>', methods=['PATCH'])
+
+@material_routes.route('/<int:materialId>/comments/<int:id>/edit', methods=['PATCH'])
 @login_required
-def edit_comment(id):
+def edit_comment(materialId, id):
     """
     this edits an existing comment under an individual material/documenation
     """
-    form = CommentsEditForm()
-    form["csrf_token"].data = request.cookies['csrf_token']
+    data = request.get_json(force=True)
+    # form = CommentsEditForm()
+    # form["csrf_token"].data = request.cookies['csrf_token']
+    print('this is data---->', data)
 
-    if form.validate_on_submit():
-        edit_comment = Comments(
-        comment = form.comment.data
-        )
+    # if form.validate_on_submit():
+    edited_comment = Comments.query.get(id)
+    edited_comment.material_documentationId = data["materialId"]
+    edited_comment.userId = data["userId"]
+    edited_comment.comment = data["comment"]
+    # edited_comment.comments = form["comment"].data
+    # edited_comment.userId = current_user.id,
+    # edited_comment.material_documentationId = materialId,
+    db.session.add(edited_comment)
+    db.session.commit()
+    print('what is the edited comment', edited_comment)
+    return edited_comment.to_dict()
+    # return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
-        db.session.add(edit_comment)
-        db.session.commit()
-        return edit_comment.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+@material_routes.route('/<int:materialId>/comments/<int:id>', methods=["DELETE"])
+def delete_comment(materialId,id):
+    comment = Comments.query.get(id)
+    # Comments.id ==
+    db.session.delete(comment)
+    db.session.commit()
+    return {"message" : "thanks for your input"}

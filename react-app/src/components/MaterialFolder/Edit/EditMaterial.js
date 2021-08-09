@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editMaterial, singleMaterial } from "../store/material";
-import Dropdown from "./Dropdown";
+import { editMaterial, singleMaterial } from "../../../store/material";
 import { Redirect, useHistory } from "react-router-dom";
+import styles from './EditMaterial.module.css'
+
 
 export default function EditMaterialForm() {
   const history = useHistory();
@@ -90,68 +91,71 @@ export default function EditMaterialForm() {
 //         {errors && errors.map((error, ind) => <div key={ind}>{error}</div>)}
 //       </div>
   return (
-    <form onSubmit={editSubmit}>
-
-      <div>
-        <label>Title</label>
-        <br />
-        <input
-          type="text"
-          name="Title"
-          onChange={updateTitle}
-          value={title}
-        ></input>
-      </div>
-      <div>
-        <label>Subject</label>
-        <br />
-        <select value={subject}
-          placeholder="subject"
-          onChange={updateSubject}
-          >
-          <option value=''></option>
-          <option value={1}>Art</option>
-          <option value={2}>Mathematics</option>
-          <option value={3}>Welding</option>
-          <option value={4}>Automotive</option>
-          <option value={5}>Psychology</option>
-          <option value={6}>Software Development</option>
-          <option value={7}>Construction</option>
-          <option value={8}>Agriculture</option>
-        </select>
-      </div>
-      <div>
-        <label>synopsis</label>
-        <br />
-        <input
-          type="text"
-          name="synopsis"
-          onChange={updateSynopsis}
-          value={synopsis}
-        ></input>
-      </div>
-      <div>
-        <label>Content</label>
-        <br />
-        <input
-          type="text"
-          name="Content"
-          onChange={updateContent}
-          value={content}
-        ></input>
-      </div>
-      <div>
-        <label>Citation</label>
-        <br />
-        <input
-          type="text"
-          name="Citation"
-          onChange={updateCitation}
-          value={citation}
-        ></input>
-      </div>
-
-      <button type="submit">Update Documentation</button>
-    </form>
+    <div className={styles.editContainer}>
+      <form className={styles.formContainer} onSubmit={editSubmit}>
+        <div className={styles.inputContainer}>
+        <div className={styles.formTitle}><label style={{ fontSize: "27px"}}>Edit Expertise Below</label></div>
+          <div>
+          <label>Title</label>
+            <br />
+            <input
+              type="text"
+              name="Title"
+              onChange={updateTitle}
+              value={title}
+            ></input>
+          </div>
+          <div>
+            <label>Subject</label>
+            <br />
+            <select value={subject}
+              placeholder="subject"
+              onChange={updateSubject}
+              >
+              <option value=''></option>
+              <option value={1}>Art</option>
+              <option value={2}>Mathematics</option>
+              <option value={3}>Welding</option>
+              <option value={4}>Automotive</option>
+              <option value={5}>Psychology</option>
+              <option value={6}>Software Development</option>
+              <option value={7}>Construction</option>
+              <option value={8}>Agriculture</option>
+            </select>
+          </div>
+          <div>
+            <label>Synopsis</label>
+            <br />
+            <textarea
+              type="text"
+              name="synopsis"
+              onChange={updateSynopsis}
+              value={synopsis}
+            ></textarea>
+          </div>
+          <div>
+            <label>Content</label>
+            <br />
+            <textarea
+              type="text"
+              name="Content"
+              onChange={updateContent}
+              value={content}
+            ></textarea>
+          </div>
+          <div>
+            <label>Citation</label>
+            <br />
+            <textarea
+              type="text"
+              name="Citation"
+              onChange={updateCitation}
+              value={citation}
+            ></textarea>
+          </div>
+        <button className={styles.btn} type="submit">Update Article</button>
+        </div>
+      </form>
+    </div>
   );
 }

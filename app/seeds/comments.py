@@ -66,6 +66,13 @@ def seed_comments():
         created_at = "2021-11-21 20:49:09"
     )
 
+    comment9 = Comments(
+        userId = 3,
+        material_documentationId = 9,
+        comment = '''can I comment on my own documentation as well?.''',
+        created_at = "2020-11-21 20:49:09"
+    )
+
     comments = [comment1,
                  comment2,
                  comment3,
@@ -74,6 +81,7 @@ def seed_comments():
                  comment6,
                  comment7,
                  comment8,
+                 comment9,
     ]
 
     for comment in comments:

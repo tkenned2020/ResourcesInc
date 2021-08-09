@@ -3,15 +3,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginFormModal/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navbar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Home from './components/Home';
+import PersistFooter from './components/FooterComp'
 import MaterialFolder from './components/MaterialFolder';
-import SingleMaterial from './components/SingleMaterial';
-import EditMaterial from './components/EditMaterial'
-import CreatesMaterialForm from './components/CreateMaterialForm';
+import SingleMaterial from './components/MaterialFolder/Individual/SingleMaterial';
+import EditMaterial from './components/MaterialFolder/Edit/EditMaterial'
+import CreatesMaterialForm from './components/MaterialFolder/CreateMaterialForm';
+import CommentEdit from './components/CommentFolder/EditComment.js';
 import { authenticate } from './store/session';
 import { getMaterials } from './store/material';
 
@@ -42,41 +44,53 @@ function App() {
         <Route path='/login' exact={true}>
         <NavBar />
           <LoginForm />
+        <PersistFooter />
         </Route>
         <Route path='/sign-up' exact={true}>
         <NavBar />
           <SignUpForm />
+          <PersistFooter />
         </Route>
         <Route path='/materials' exact={true}>
         <NavBar />
         <MaterialFolder allMaterials={allMaterials} />
+        <PersistFooter />
         </Route>
         <ProtectedRoute path='/create' exact={true}>
         <NavBar />
           <CreatesMaterialForm/>
+          <PersistFooter />
         </ProtectedRoute>
         <Route path='/materials/:materialId' exact={true}>
         <NavBar />
         <SingleMaterial />
-        <h1>this is where an individual material will be displayed</h1>
+        <PersistFooter />
         </Route>
         <Route path='/materials/:materialId/edit' exact={true}>
         <NavBar/>
         <EditMaterial/>
-        <h1>this is where an individual material will be edited</h1>
+        <CommentEdit />
+        <PersistFooter />
         </Route>
+        <ProtectedRoute path='/comment/edit' exact={true}>
+        <NavBar/>
+          <PersistFooter />
+        </ProtectedRoute>
         <ProtectedRoute path='/users' exact={true} >
         <NavBar />
           <UsersList/>
+          <PersistFooter />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
         <NavBar />
           <User />
+          <PersistFooter />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
+        <Route path='/' exact={true} >
         <NavBar />
-          <h1>you made it</h1>
-        </ProtectedRoute>
+        <Home />
+        <PersistFooter />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
