@@ -125,20 +125,20 @@ function SingleMaterial() {
                 }
               </strong>
             </div>
-            <NavLink
+            {user.id === material.userId && <NavLink
               className={styles.infobtn}
               style={{ textDecoration: "none" }}
               to={`/materials/${material.id}/edit`}
             >
               Edit
-            </NavLink>
-            <button
+            </NavLink>}
+            {user.id === material.userId && <button
               className={styles.infobtn}
               type="button"
               onClick={handleDeleteMaterial}
             >
               Delete
-            </button>
+            </button>}
             <br />
             <div className={styles.commentContainer}>
               {visible === false && (
