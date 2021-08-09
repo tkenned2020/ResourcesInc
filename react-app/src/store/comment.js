@@ -2,8 +2,7 @@
 
 const ADD_COMMENT = 'comment/ADD_COMMENT'
 const SET_COMMENTS = 'comment/SET_COMMENTS'
-const EDIT_COMMENT = 'comment/EDIT_COMMENT'
-const DELETE_COMMENT = 'comment/DELETE_COMMENT'
+
 
 
 /* create and define action creators */
@@ -18,15 +17,9 @@ const setCommentsToStore = (comments) => ({
   comments //payload = action.
 })
 
-const editCommentInStore = (comment) => ({
-  type: EDIT_COMMENT, //action type = action.type
-  comment //payload = action.payload
-})
 
-const deleteCommentFromStore = (commentId) => ({
-  type: DELETE_COMMENT, //action type = action.type
-  commentId //payload = action.payload
-})
+
+
 
 
 export const getComments = () => async dispatch => {
@@ -90,8 +83,8 @@ export const editComment = (formObj, history) => async dispatch => {
 
 
 export const deleteComment = ( formObj, history) => async dispatch => {
-  const {commentId, materialId, userId } = formObj
-  const data =  {commentId, materialId, userId }
+  const {commentId, materialId } = formObj
+  // const dataFlow =  {commentId, materialId, userId }
   console.log('this is the comment to deletes id',commentId)
   const response = await fetch(`/api/materials/${materialId}/comments/${commentId}`, {
     method : "DELETE",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { editMaterial, singleMaterial } from "../../../store/material";
-import { Redirect, useHistory } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import styles from './EditMaterial.module.css'
 
 
@@ -49,7 +49,7 @@ export default function EditMaterialForm() {
     } else {
       dispatch(singleMaterial(Number(materialId)));
     }
-  }, [material]);
+  }, [dispatch, materialId, material]);
 
   useEffect(() => {
     const errorArray = [];

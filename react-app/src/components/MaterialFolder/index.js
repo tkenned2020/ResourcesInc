@@ -9,9 +9,6 @@ import styles from "./Material.module.css";
 export default function Material() {
   const dispatch = useDispatch();
   const materials = useSelector((state) => Object.values(state.material.all));
-  const comments = useSelector((state) => Object.values(state.comments.all));
-  console.log("what does this useSelector return", materials);
-  console.log("what does this useSelector/comments return ", comments);
 
 
   useEffect(() => {

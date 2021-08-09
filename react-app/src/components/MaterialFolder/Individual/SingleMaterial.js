@@ -36,9 +36,7 @@ function SingleMaterial() {
 
 
   const handleEditComment = (e) => {
-    const currentComment = material.comments.filter(
-      (comment) => comment.userId === user.id
-    )[0].comment;
+    
     const currentCommentId = material.comments.filter(
       (comment) => comment.userId === user.id
     )[0].id;

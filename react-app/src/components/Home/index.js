@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory, Navlink } from 'react-router-dom/cjs/react-router-dom.min';
-import { getMaterials } from '../../store/material';
+import React from 'react';
 import styles from './Home.module.css'
 
 export default function HomeComp (){
