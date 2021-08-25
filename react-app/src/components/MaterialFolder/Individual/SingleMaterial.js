@@ -7,7 +7,7 @@ import {
   editComment,
   deleteComment,
 } from "../../../store/comment";
-import { logout } from '../../../store/session';
+// import { logout } from '../../../store/session';
 import styles from "./SingleMaterial.module.css";
 
 function SingleMaterial() {
@@ -19,10 +19,10 @@ function SingleMaterial() {
   const material = useSelector((state) => state.material.current);
   const user = useSelector((state) => state.session.user);
 
-  const onLogout = async (e) => {
-    await dispatch(logout());
-    history.push('/')
-  };
+  // const onLogout = async (e) => {
+  //   await dispatch(logout());
+  //   history.push('/')
+  // };
 
   useEffect(() => {
     if (materialId) dispatch(singleMaterial(materialId));
@@ -44,16 +44,16 @@ function SingleMaterial() {
   const handleEditComment = (e) => {
 
     const currentCommentId = material.comments.filter(
-      (comment) => comment.userId === user.id
-    )[0].id;
+      (comment) => comment.userId === user?.id
+    )[0]?.id;
 
 
 
     dispatch(
       editComment({
         commentId: currentCommentId,
-        materialId: material.id,
-        userId: user.id,
+        materialId: material?.id,
+        userId: user?.id,
         comment: comment
       })
     );
@@ -129,14 +129,14 @@ function SingleMaterial() {
                 }
               </strong>
             </div>
-            {user.id === material.userId && <NavLink
+            {user?.id === material.userId && <NavLink
               className={styles.infobtn}
               style={{ textDecoration: "none" }}
               to={`/materials/${material.id}/edit`}
             >
               Edit
             </NavLink>}
-            {user.id === material.userId && <button
+            {user?.id === material.userId && <button
               className={styles.infobtn}
               type="button"
               onClick={handleDeleteMaterial}
@@ -145,7 +145,7 @@ function SingleMaterial() {
             </button>}
             <br />
             <div className={styles.commentContainer}>
-              {visible === false && (
+              {visible === false && user?.id && (
                 <form onSubmit={handleCreateComment}>
                   <label>Comment</label>
                   <textarea
@@ -220,7 +220,7 @@ function SingleMaterial() {
                     style={{
                       textDecoration: "none",
                       visibility:
-                        user.id === comment.userId ? "visible" : "hidden",
+                        user?.id === comment.userId ? "visible" : "hidden",
                     }}
                   >
                     Edit
@@ -238,7 +238,7 @@ function SingleMaterial() {
                     }
                     style={{
                       visibility:
-                        user.id === comment.userId ? "visible" : "hidden",
+                        user?.id === comment.userId ? "visible" : "hidden",
                     }}
                   >
                     delete
