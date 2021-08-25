@@ -17,7 +17,7 @@ export default function Material() {
   }, [dispatch]);
 
   return (
-    <div  className={styles.materialContainer}>
+    <div className={styles.materialContainer}>
       <br />
       {materials.map((material, idx) => (
         <div key={idx} className={styles.infoContainer}>
