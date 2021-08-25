@@ -14,7 +14,7 @@ export default function CreatesMaterialForm() {
   const [synopsis, setSynopsis] = useState("");
   const [content, setContent] = useState("");
   const [citation, setCitation] = useState("");
-  const [erorrs, setErrors] = useState([])
+  const [errors, setErrors] = useState([])
 
   const createSubmit = e => {
     e.preventDefault()
@@ -23,26 +23,43 @@ export default function CreatesMaterialForm() {
   };
 
 
-  useEffect(() => {
-    const errorArray = [];
-    if (!title) {
-      errorArray.push("title needs to be provided");
-    }
-    if (!subject) {
-      errorArray.push("subject needs to be provided");
-    }
-    if (!synopsis) {
-      errorArray.push("synopsis needs to be provided");
-    }
-    if (!content) {
-      errorArray.push("content needs to be provided");
-    }
-    if (!citation) {
-      errorArray.push("citation needs to be provided");
-    }
+  // useEffect((errors) => {
+  //   // const errorArray = [];
+  //   if (!title) {
+  //     errors.push("title needs to be provided");
+  //   }
+  //   if (!subject) {
+  //     errors.push("subject needs to be provided");
+  //   }
+  //   if (!synopsis) {
+  //     errors.push("synopsis needs to be provided");
+  //   }
+  //   if (!content) {
+  //     errors.push("content needs to be provided");
+  //   }
+  //   if (!citation) {
+  //     errors.push("citation needs to be provided");
+  //   }
 
-    setErrors(errorArray);
-  }, [title, subject, synopsis, content, citation]);
+  //   // setErrors(errorArray);
+  // }, [title, subject, synopsis, content, citation]);
+
+      // if (!title) {
+      //   errors.push("title needs to be provided");
+      // }
+      // if (!subject) {
+      //   errors.push("subject needs to be provided");
+      // }
+      // if (!synopsis) {
+      //   errors.push("synopsis needs to be provided");
+      // }
+      // if (!content) {
+      //   errors.push("content needs to be provided");
+      // }
+      // if (!citation) {
+      //   errors.push("citation needs to be provided");
+      // }
+
 
 
   const updateTitle = (e) => {
@@ -62,11 +79,7 @@ export default function CreatesMaterialForm() {
   };
 
 
-// <div>
-//         {errors.map((error, ind) => (
-//           <div key={ind}>{error}</div>
-//         ))}
-//       </div>
+
   // if(material) {return <Redirect to='/materials/:materialId'/>}
 
   return (
@@ -74,6 +87,7 @@ export default function CreatesMaterialForm() {
 
       <form className={styles.formContainer} onSubmit={createSubmit}>
         <div className={styles.inputContainer}>
+
         <div className={styles.formTitle}><label style={{ fontSize: "27px"}}>Expertise Belongs Below</label></div>
           <div>
             <label>Title</label>
@@ -83,6 +97,7 @@ export default function CreatesMaterialForm() {
               name='Title'
               onChange={updateTitle}
               value={title}
+              required={true}
             ></input>
           </div>
           <div>
@@ -90,6 +105,7 @@ export default function CreatesMaterialForm() {
             <br/>
             <select value={subject}
               placeholder="subject"
+              required={true}
               onChange={updateSubject}
               >
               <option value=''></option>
@@ -111,6 +127,7 @@ export default function CreatesMaterialForm() {
               name='synopsis'
               onChange={updateSynopsis}
               value={synopsis}
+              required={true}
             ></textarea>
           </div>
           <div>
@@ -121,6 +138,7 @@ export default function CreatesMaterialForm() {
               name='Content'
               onChange={updateContent}
               value={content}
+              required={true}
             ></textarea>
           </div>
           <div>
@@ -131,8 +149,15 @@ export default function CreatesMaterialForm() {
               name='Citation'
               onChange={updateCitation}
               value={citation}
+
             ></textarea>
           </div>
+
+           {//errors && errors.map((error, ind) => (
+          //   <div key={ind}>{error}</div>
+          // ))
+            }
+
           <button className={styles.btn} type='submit'>Create Article</button>
         </div>
       </form>

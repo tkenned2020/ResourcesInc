@@ -99,6 +99,9 @@ hurt to run it again.
 
 10. set up your database
 
+   if needed use this to reset database for heroku:
+   " heroku pg:reset -a myherokuappname --confirm myherokuappname "
+
       ```bash
       heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
       heroku run -a {NAME_OF_HEROKU_APP} flask seed all

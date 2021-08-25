@@ -7,6 +7,7 @@ import {
   editComment,
   deleteComment,
 } from "../../../store/comment";
+import { logout } from '../../../store/session';
 import styles from "./SingleMaterial.module.css";
 
 function SingleMaterial() {
@@ -18,12 +19,17 @@ function SingleMaterial() {
   const material = useSelector((state) => state.material.current);
   const user = useSelector((state) => state.session.user);
 
+  const onLogout = async (e) => {
+    await dispatch(logout());
+    history.push('/')
+  };
+
   useEffect(() => {
     if (materialId) dispatch(singleMaterial(materialId));
   }, [dispatch, materialId]);
 
   const payload = {
-    userId: user.id,
+    userId: user?.id,
     comments: comment,
     material_documentationId: materialId,
   };
@@ -36,7 +42,7 @@ function SingleMaterial() {
 
 
   const handleEditComment = (e) => {
-    
+
     const currentCommentId = material.comments.filter(
       (comment) => comment.userId === user.id
     )[0].id;

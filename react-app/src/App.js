@@ -65,11 +65,11 @@ function App() {
         <SingleMaterial />
         <PersistFooter />
         </Route>
-        <Route path='/materials/:materialId/edit' exact={true}>
+        <ProtectedRoute path='/materials/:materialId/edit' exact={true}>
         <NavBar/>
         <EditMaterial/>
         <PersistFooter />
-        </Route>
+        </ProtectedRoute>
         <ProtectedRoute path='/comment/edit' exact={true}>
         <NavBar/>
           <PersistFooter />

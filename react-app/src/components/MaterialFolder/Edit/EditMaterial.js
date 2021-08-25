@@ -51,26 +51,26 @@ export default function EditMaterialForm() {
     }
   }, [dispatch, materialId, material]);
 
-  useEffect(() => {
-    const errorArray = [];
-    if (!title) {
-      errorArray.push("title needs to be provided");
-    }
-    if (!subject) {
-      errorArray.push("subject needs to be provided");
-    }
-    if (!synopsis) {
-      errorArray.push("synopsis needs to be provided");
-    }
-    if (!content) {
-      errorArray.push("content needs to be provided");
-    }
-    if (!citation) {
-      errorArray.push("citation needs to be provided");
-    }
+  // useEffect(() => {
 
-    setErrors(errorArray);
-  }, [title, subject, synopsis, content, citation]);
+  //   if (!title) {
+  //     errors.push("title needs to be provided");
+  //   }
+  //   if (!subject) {
+  //     errors.push("subject needs to be provided");
+  //   }
+  //   if (!synopsis) {
+  //     errors.push("synopsis needs to be provided");
+  //   }
+  //   if (!content) {
+  //     errors.push("content needs to be provided");
+  //   }
+  //   if (!citation) {
+  //     errors.push("citation needs to be provided");
+  //   }
+
+  //   // setErrors(errorArray);
+  // }, [errors, title, subject, synopsis, content, citation]);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -103,6 +103,7 @@ export default function EditMaterialForm() {
               name="Title"
               onChange={updateTitle}
               value={title}
+              required={true}
             ></input>
           </div>
           <div>
@@ -110,6 +111,7 @@ export default function EditMaterialForm() {
             <br />
             <select value={subject}
               placeholder="subject"
+              required={true}
               onChange={updateSubject}
               >
               <option value=''></option>
@@ -129,6 +131,7 @@ export default function EditMaterialForm() {
             <textarea
               type="text"
               name="synopsis"
+              required={true}
               onChange={updateSynopsis}
               value={synopsis}
             ></textarea>
@@ -141,6 +144,7 @@ export default function EditMaterialForm() {
               name="Content"
               onChange={updateContent}
               value={content}
+              required={true}
             ></textarea>
           </div>
           <div>
